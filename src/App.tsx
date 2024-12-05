@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import CharacterTab from './CharacterTab'
 import HeadIcon from '../assets/head.png'
+import LinearGradient from 'react-native-linear-gradient';
 
 type Theme = {
   secondaryColor: string;
@@ -124,9 +125,9 @@ function App(): React.JSX.Element {
     <ThemeContext.Provider value={CharacterTheme}>
       <SafeAreaView style={{backgroundColor: theme.secondaryColor}}>
         <StatusBar backgroundColor={theme.secondaryColor} />
-          <View style={{ position: "absolute", top: -150, left: -100, borderRadius: 999, width: 600, height: 600, backgroundColor: theme.primaryColor }}>
+          <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={[theme.primaryColor, theme.primaryColor, theme.white]} style={{ position: "absolute", top: -150, left: -100, borderRadius: 999, width: 600, height: 600}}>
             <Image source={icon} style={{width: 330, height: 330 * iconRatio, top: 165, left: 155}} />
-          </View>
+          </LinearGradient >
         <ScrollView alwaysBounceVertical overScrollMode={'always'} style={{height:"100%"}} contentInsetAdjustmentBehavior="automatic">
           { tab === "Character" ? <CharacterTab /> : null}
         </ScrollView>
