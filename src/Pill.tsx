@@ -16,7 +16,7 @@ type PillProps = {
 function Pill ({onPress, type} : PillProps): React.JSX.Element {
   const theme = useContext(ThemeContext)
   return (
-    <TouchableOpacity style={{
+    <TouchableOpacity onPress={onPress} style={{
       borderRadius: 30,
       backgroundColor: type === "Reload" ? theme.secondaryColor : theme.favoriteColor,
       padding: 20,

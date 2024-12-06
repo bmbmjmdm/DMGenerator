@@ -1,4 +1,4 @@
-const equipment = [
+export default [
 "Acid Vial",
 "Alchemist Fire Flask",
 "Alchemy Jug",

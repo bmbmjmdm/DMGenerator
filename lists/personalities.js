@@ -1,4 +1,4 @@
-const personalities = [
+export default [
 "Aggressive",
 "Alcoholic",
 "Angry",

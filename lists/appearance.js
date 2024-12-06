@@ -1,4 +1,4 @@
-const appearance = [
+export default [
     "Afro Hair",
     "Animal Feature",
     "Baggy Eyes",
@@ -101,7 +101,7 @@ const appearance = [
     "Woolen clothing",
     "Warn Hands",
     "Young",
-    "athletic",",
+    "athletic",
     "beautiful",
     "blotchy",
     "brawny",

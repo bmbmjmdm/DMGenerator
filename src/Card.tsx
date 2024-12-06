@@ -7,7 +7,7 @@ import {
 type CardProps = {
   icon?: React.JSX.Element,
   rows?: React.JSX.Element[],
-  children?: React.JSX.Element[]
+  children?: React.JSX.Element | React.JSX.Element[]
 }
 
 

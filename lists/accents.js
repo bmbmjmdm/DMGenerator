@@ -1,4 +1,4 @@
-const accents = [
+export default [
     "Deep voice",
     "Crisp Voice", 
     "Airy words (stoned)",

@@ -1,4 +1,4 @@
-const abilities = [
+export default [
 "Abjure Enemy: action, present holy symbol, 1 creature makes WIS save or is frightened for 1 minute",
 "Acrobatics +2",
 "Aid (p211)",

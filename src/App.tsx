@@ -27,7 +27,7 @@ const CharacterTheme:Theme = {
   primaryColor: "#B6E9FF",
   repickColor: "#735CDD90",
   deleteColor: "#EF476F80",
-  addColor: "#56E39F80",
+  addColor: "#56E39Faa",
   favoriteColor: "#56E39F",
   black: "#000000",
   white: "#FFFFFF",

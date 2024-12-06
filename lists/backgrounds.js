@@ -1,4 +1,4 @@
-const backgrounds = [
+export default [
     "Has a Family",
     "Well-Traveled",   
     "Orphaned",

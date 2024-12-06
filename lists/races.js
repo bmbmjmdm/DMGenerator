@@ -1,4 +1,4 @@
-const races = [
+export default [
     "Dragonborn",
     "Dwarf",
     "Elf",

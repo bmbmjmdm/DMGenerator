@@ -1,4 +1,4 @@
-const motivations = [
+export default [
     "Looking for Artifact",
     "Hiding from Someone",
     "In Search of Knowledge",
