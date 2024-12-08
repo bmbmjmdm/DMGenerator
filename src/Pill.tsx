@@ -24,7 +24,8 @@ function Pill ({onPress, type} : PillProps): React.JSX.Element {
       margin: 20,
       marginTop: 40,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.5)'
     }}>
         {
             type === "Reload" ?

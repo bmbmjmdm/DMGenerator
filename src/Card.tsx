@@ -18,13 +18,15 @@ function Card ({icon, rows, children} : CardProps): React.JSX.Element {
       backgroundColor: "white",
       padding: 20,
       margin: 20,
-      flexDirection: 'row'
+      flexDirection: 'row',
+      alignSelf: 'flex-end',
+      boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.5)'
     }}>
       {children ? children : (
         <>
           <View style={{
             flexDirection: "column",
-            flex: 3,
+            flex: rows?.length ? 3 : 0,
             rowGap: 10
           }}>
             {rows}

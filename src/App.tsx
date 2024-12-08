@@ -1,16 +1,26 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useRef, useState } from 'react';
 import {
   Image,
+  ImageSourcePropType,
+  LayoutChangeEvent,
   SafeAreaView,
   ScrollView,
   StatusBar,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import CharacterTab from './CharacterTab'
-import HeadIcon from '../assets/head.png'
 import LinearGradient from 'react-native-linear-gradient';
+import Tab, { CardDetails } from './Tab';
 
-type Theme = {
+export type TabInfo = {
+  cards: Record<string, CardDetails>,
+  theme: Theme,
+  icon: ImageSourcePropType,
+  iconRatio: number
+}
+
+export type Theme = {
   secondaryColor: string;
   primaryColor: string;
   repickColor: string;
@@ -22,117 +32,45 @@ type Theme = {
 
 }
 
-const CharacterTheme:Theme = {
-  secondaryColor: "#735CDD",
-  primaryColor: "#B6E9FF",
-  repickColor: "#735CDD90",
-  deleteColor: "#EF476F80",
-  addColor: "#56E39Faa",
-  favoriteColor: "#56E39F",
-  black: "#000000",
-  white: "#FFFFFF",
-}
-
-const NatureEncounterTheme:Theme = {
-  secondaryColor: "#735CDD",
-  primaryColor: "#B6E9FF",
-  repickColor: "#80735CDD",
-  deleteColor: "#80EF476F",
-  addColor: "#8056E39F",
-  favoriteColor: "#56E39F",
-  black: "#000000",
-  white: "#FFFFFF",
-}
-
-const CityEncounterTheme:Theme = {
-  secondaryColor: "#735CDD",
-  primaryColor: "#B6E9FF",
-  repickColor: "#80735CDD",
-  deleteColor: "#80EF476F",
-  addColor: "#8056E39F",
-  favoriteColor: "#56E39F",
-  black: "#000000",
-  white: "#FFFFFF",
-}
-
-const DungeonRoomTheme:Theme = {
-  secondaryColor: "#735CDD",
-  primaryColor: "#B6E9FF",
-  repickColor: "#80735CDD",
-  deleteColor: "#80EF476F",
-  addColor: "#8056E39F",
-  favoriteColor: "#56E39F",
-  black: "#000000",
-  white: "#FFFFFF",
-}
-
-const Citytheme:Theme = {
-  secondaryColor: "#735CDD",
-  primaryColor: "#B6E9FF",
-  repickColor: "#80735CDD",
-  deleteColor: "#80EF476F",
-  addColor: "#8056E39F",
-  favoriteColor: "#56E39F",
-  black: "#000000",
-  white: "#FFFFFF",
-}
-
-const QuestTheme:Theme = {
-  secondaryColor: "#735CDD",
-  primaryColor: "#B6E9FF",
-  repickColor: "#80735CDD",
-  deleteColor: "#80EF476F",
-  addColor: "#8056E39F",
-  favoriteColor: "#56E39F",
-  black: "#000000",
-  white: "#FFFFFF",
-}
-
-const GodTheme:Theme = {
-  secondaryColor: "#735CDD",
-  primaryColor: "#B6E9FF",
-  repickColor: "#80735CDD",
-  deleteColor: "#80EF476F",
-  addColor: "#8056E39F",
-  favoriteColor: "#56E39F",
-  black: "#000000",
-  white: "#FFFFFF",
-}
-
-const TabProps:any = {
-  Character: {
-    icon: HeadIcon,
-    iconRatio: Math.round(100 * 592/488)/100,
-    theme: CharacterTheme
-  },
-  NatureEncounter: null,
-  CityEncounter: null,
-  Quest: null,
-  City: null,
-  God: null,
-  DungeonRoom: null,
-}
-
-export const ThemeContext = createContext(CharacterTheme)
+export const ThemeContext = createContext(CharacterTab.theme)
 
 function App(): React.JSX.Element {
-  const [tab, setTab] = useState("Character")
-  const theme = TabProps[tab].theme
-  const icon = TabProps[tab].icon
-  const iconRatio = TabProps[tab].iconRatio
+  const [tab, setTab] = useState(CharacterTab)
+  const [scrollHeight, setScrollHeight] = useState(0)
+  const firstRender = useRef(true)
+  const theme = tab.theme
+  const icon = tab.icon
+  const iconRatio = tab.iconRatio
+  const cards = tab.cards
+
+  // manually set the height of the scrollview so we have the perfect amount of space for the navbar
+  const onLayout = (e:LayoutChangeEvent) => {
+    if (firstRender.current) {
+      firstRender.current = false
+      const layout = e.nativeEvent.layout
+      setScrollHeight(layout.y - layout.height)
+    }
+  }
   
   return (
-    <ThemeContext.Provider value={CharacterTheme}>
+    <ThemeContext.Provider value={theme}>
       <SafeAreaView style={{backgroundColor: theme.secondaryColor}}>
         <StatusBar backgroundColor={theme.secondaryColor} />
           <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={[theme.primaryColor, theme.primaryColor, theme.white]} style={{ position: "absolute", top: -150, left: -100, borderRadius: 999, width: 600, height: 600}}>
             <Image source={icon} style={{width: 330, height: 330 * iconRatio, top: 165, left: 155}} />
           </LinearGradient >
-        <ScrollView alwaysBounceVertical overScrollMode={'always'} style={{height:"100%"}} contentInsetAdjustmentBehavior="automatic">
-          { tab === "Character" ? <CharacterTab /> : null}
+        <ScrollView style={{height: scrollHeight || "100%"}} alwaysBounceVertical overScrollMode={'always'} contentInsetAdjustmentBehavior="automatic">
+          <Tab cards={cards} />
         </ScrollView>
-        <View style={{ height: 100, backgroundColor: theme.secondaryColor }}>
-
+        <View onLayout={onLayout} style={{
+          flexDirection: 'row',
+          backgroundColor: theme.secondaryColor,
+          alignItems: 'center',
+          padding: 20,
+        }}>
+          <TouchableOpacity onPress={() => setTab(CharacterTab)} >
+            <Image source={CharacterTab.icon} style={{width: 50, height: 60}} />
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </ThemeContext.Provider>
