@@ -1,9 +1,11 @@
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 import {
   View,
   TouchableOpacity,
   Text,
+  Alert,
+  Animated,
 } from 'react-native';
 import {
   PlusSVG,
@@ -14,17 +16,23 @@ type IconPlusProps = {
   icon: React.FC<SvgProps>,
   onPress: () => void,
   longestDescription: number,
+  name: string
+
 }
 
-// TODO make the icon touchable and display the card name above it when pressed
 
-
-function IconPlus ({icon, onPress, longestDescription} : IconPlusProps): React.JSX.Element {
-  // the width should range from 25 to 75. 
-  // If there's 10 characters or less, it should be 75. 
-  // If theres 40 characters or more, it should be 25. 
-  // And everything in between
-  const width = 25 + (50 * (1 - Math.min(1, Math.max(0, longestDescription - 10) / 30)))
+function IconPlus ({name, icon, onPress, longestDescription} : IconPlusProps): React.JSX.Element {
+  const [showName, setShowName] = useState(false)
+  const animateName = () => {
+    if (showName) return
+    setShowName(true)
+    setTimeout(() => {
+      setShowName(false)
+    }, 1100)
+  }
+  // the width should range from 25 to 75
+  // inversely proportional to 100 matches the range well
+  const width = Math.min(75, Math.max(25, (100 - longestDescription)))
   const Icon = icon;
 
   return (
@@ -33,8 +41,10 @@ function IconPlus ({icon, onPress, longestDescription} : IconPlusProps): React.J
       alignItems: "center",
       justifyContent: "center",
     }}>
-      
-      <Icon style={{width: width, height: width}} />
+      {showName ? <FloatingText text={name} /> : null}
+      <TouchableOpacity onPress={animateName}>
+        <Icon width={width} height={width} />
+      </TouchableOpacity>
       <TouchableOpacity onPress={onPress}>
         <PlusSVG />
       </TouchableOpacity>
@@ -43,5 +53,33 @@ function IconPlus ({icon, onPress, longestDescription} : IconPlusProps): React.J
 }
 
 
-
 export default IconPlus;
+
+
+function FloatingText({text}: {text:string}): React.JSX.Element {
+  const opacity = useRef(new Animated.Value(1)).current
+  const top = useRef(new Animated.Value(-50)).current
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start()
+    Animated.timing(top, {
+      toValue: -100,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start()
+  }, [])
+
+  return (
+    <Animated.View style={{
+      width: 110,
+      position: 'absolute',
+      transform: [{translateY: top}],
+      opacity: opacity,
+    }}>
+      <Text style={{ fontSize: 20, textAlign: "center" }}>{text}</Text>
+    </Animated.View>
+  )
+}

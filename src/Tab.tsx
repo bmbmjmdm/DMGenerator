@@ -33,26 +33,26 @@ function Tab(props:TabProps): React.JSX.Element {
 
   const onFavorite = () => {
   }
-  
+
   const onReload = () => {
-    const newState = Object.keys(props.cards).reduce((acc, key) => {
-      const card = props.cards[key]
+    const newState = Object.keys(props.cards).reduce((acc, cardName) => {
+      const card = props.cards[cardName]
       const lists = card.lists
       // each card is a list of texts
-      acc[key] = []
-      // if theres only 1 list, add 2 texts from it, unless the text is large
+      acc[cardName] = []
+      // if theres only 1 list, add 2 texts from it, unless the text is single
       if (lists.length === 1) {
         const getter = lists[0]
-        acc[key].push(getter())
+        acc[cardName].push(getter())
         if (!card.single) {
-          acc[key].push(getter())
+          acc[cardName].push(getter())
         }
       }
       // if theres more than 1 list, add 1 text from each
       else {
         for (let i = 0 ; i < lists.length ; i++) {
           const getter = lists[i]
-          acc[key].push(getter())
+          acc[cardName].push(getter())
         }
       }
       return acc;
@@ -92,20 +92,26 @@ function Tab(props:TabProps): React.JSX.Element {
         </View>
 
         {
-          Object.keys(state).map((key:string) => {
-            const list = state[key]
-            const icon = props.cards[key].icon
+          Object.keys(state).map((cardName:string) => {
+            const descriptionList = state[cardName]
+            const icon = props.cards[cardName].icon
             return (
               <Card
                 icon={
                   <IconPlus 
+                    name={cardName}
                     icon={icon || View}
-                    onPress={() => onAdd(key)}
-                    longestDescription={list.reduce((acc, text) => text.length > acc ? text.length : acc, 0)}
+                    onPress={() => onAdd(cardName)}
+                    longestDescription={[...descriptionList].sort((a, b) => b.length - a.length)[0].length}
                   />
                 }
-                rows={list.map((text, index) => (
-                  <DescriptionRow text={text} onDelete={() => onRemove(key, index)} onRepick={() => onReloadSingle(key, index)} />
+                rows={descriptionList.map((text, index) => (
+                  <DescriptionRow
+                    text={text}
+                    onDelete={() => onRemove(cardName, index)}
+                    onRepick={() => onReloadSingle(cardName, index)}
+                    key={text}
+                  />
                 ))}
               />
             )

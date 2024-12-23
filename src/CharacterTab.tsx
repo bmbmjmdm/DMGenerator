@@ -22,7 +22,7 @@ import {
 
 const tab:TabInfo = {
     cards: {
-      ID: {
+      "ID and Voice": {
         icon: IDSVG,
         lists: [getRandomName, getRandomRace, getRandomAccent],
       },

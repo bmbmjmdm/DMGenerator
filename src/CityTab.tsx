@@ -1,3 +1,4 @@
+/*
 import BuildingIcon from '../assets/building.png'
 import { TabInfo } from './App'
 import {
@@ -62,3 +63,4 @@ const tab:TabInfo = {
 }
 
 export default tab
+*/
