@@ -23,7 +23,7 @@ function DescriptionRow ({text, onDelete, onRepick} : DescriptionRowProps): Reac
       flexDirection: 'row',
       alignItems: "center"
     }}>
-      <TouchableOpacity style={{flex: 1}} onPress={onRepick}>
+      <TouchableOpacity hitSlop={10} style={{flex: 1}} onPress={onRepick}>
         <ReloadSVG />
       </TouchableOpacity>
       <Text style={{
