@@ -16,6 +16,8 @@ type IconPlusProps = {
   longestDescription: number,
 }
 
+// TODO make the icon touchable and display the card name above it when pressed
+
 
 function IconPlus ({icon, onPress, longestDescription} : IconPlusProps): React.JSX.Element {
   // the width should range from 25 to 75. 
@@ -24,7 +26,7 @@ function IconPlus ({icon, onPress, longestDescription} : IconPlusProps): React.J
   // And everything in between
   const width = 25 + (50 * (1 - Math.min(1, Math.max(0, longestDescription - 10) / 30)))
   const Icon = icon;
-  
+
   return (
     <View style={{
       flexDirection: 'column',

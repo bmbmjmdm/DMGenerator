@@ -25,10 +25,6 @@ import Svg, {
 } from 'react-native-svg';
 import { ThemeContext } from './App';
 
-// TODO DALE DONT IGNORE ME AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-// make SVGs not have a default height/width but rather base their height/width on the
-// longest row of text the card contains 
-
 type SVGProps = {
   color?: string;
   width?: number;
