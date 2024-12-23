@@ -22,27 +22,28 @@ import {
 const tab:TabInfo = {
     cards: {
       Basicsx: {
-        icon: <SignSVG />,
+        icon: SignSVG,
         lists: [getCityName, getCitySize, getGovernment],
       },
       Aesthetics: {
-        icon: <FountainSVG />,
+        icon: FountainSVG,
         lists: [getCityAesthetic],
       },
       Production: {
-        icon: <LumberSVG />,
+        icon: LumberSVG,
         lists: [getProduction],
       },
       Problems: {
-        icon: <FireSVG />,
+        icon: FireSVG,
         lists: [getCityProblem],
       },
       Values: {
-        icon: <HeartSVG />,
+        icon: HeartSVG,
         lists: [getCityValue],
+        single: true,
       },
       Districts: {
-        icon: <MapSVG />,
+        icon: MapSVG,
         lists: [getDistrict],
       },
     },

@@ -9,12 +9,12 @@ import IconPlus from './IconPlus'
 import Pill from './Pill';
 
 export type CardDetails = {
-  icon: React.JSX.Element,
+  icon: React.FC,
   // a card with only 1 provided list will use that list for each entry. it will have 2 default entries
   // a card with 2+ lists will have 1 default entry for each list, and subsequent entries will pick a random list
   lists: (() => string)[],
-  // a card marked large will have a small icon and only 1 default entry
-  large?: boolean,
+  // a card marked single will have only 1 default entry
+  single?: boolean,
 }
 
 
@@ -44,7 +44,7 @@ function Tab(props:TabProps): React.JSX.Element {
       if (lists.length === 1) {
         const getter = lists[0]
         acc[key].push(getter())
-        if (!card.large) {
+        if (!card.single) {
           acc[key].push(getter())
         }
       }
@@ -99,8 +99,9 @@ function Tab(props:TabProps): React.JSX.Element {
               <Card
                 icon={
                   <IconPlus 
-                    icon={icon || <View />}
+                    icon={icon || View}
                     onPress={() => onAdd(key)}
+                    longestDescription={list.reduce((acc, text) => text.length > acc ? text.length : acc, 0)}
                   />
                 }
                 rows={list.map((text, index) => (

@@ -7,39 +7,79 @@ import Motivations from "../lists/motivations"
 import Equipment from "../lists/equipment"
 import Accents from "../lists/accents"
 import Abilities from "../lists/abilities"
+import CityNames from "../lists/cityNames"
+import CitySizes from "../lists/citySizes"
+import Governments from "../lists/cityGovernments"
+import Productions from "../lists/cityProduction"
+import CityProblems from "../lists/cityProblems"
+import CityAesthetics from "../lists/cityAesthetics"
+import CityValues from "../lists/cityValues"
+import Districts from "../lists/cityDistricts"
+
+
+const getRandom = (list: string[]) => {
+    return list[Math.floor(list.length * Math.random())]
+}
 
 export const getRandomName = () => {
-    return CharacterNames[Math.floor(CharacterNames.length * Math.random())]
+    return getRandom(CharacterNames) + " " + getRandom(CharacterNames)
 }
 
 export const getRandomRace = () => {
-    return Races[Math.floor(Races.length * Math.random())]
+    return getRandom(Races)
 }
 
 export const getRandomAppearance = () => {
-    return CharacterAppearances[Math.floor(CharacterAppearances.length * Math.random())]
+    return getRandom(CharacterAppearances)
 }
 
 export const getRandomPersonality = () => {
-    return Personalities[Math.floor(Personalities.length * Math.random())]
+    return getRandom(Personalities)
 }
 
 export const getRandomBackground = () => {
-    return CharacterBackgrounds[Math.floor(CharacterBackgrounds.length * Math.random())]
+    return getRandom(CharacterBackgrounds)
 }
 
 export const getRandomMotivation = () => {
-    return Motivations[Math.floor(Motivations.length * Math.random())]
+    return getRandom(Motivations)
 }
 
 export const getRandomEquipment = () => {
-    return Equipment[Math.floor(Equipment.length * Math.random())]
+    return getRandom(Equipment)
 }
 
 export const getRandomAccent = () => {
-    return Accents[Math.floor(Accents.length * Math.random())]
+    return getRandom(Accents)
 }
 
 export const getRandomAbility = () => {
-    return Abilities[Math.floor(Abilities.length * Math.random())]
+    return getRandom(Abilities)
+}
+export const getCityName = () => {
+    return getRandom(CityNames)
+}
+
+export const getCitySize = () => {
+    return getRandom(CitySizes)
+}
+
+export const getGovernment = () => {
+    return getRandom(Governments)
+}
+
+export const getProduction = () => {
+    return getRandom(Productions)
+}
+export const getCityProblem = () => {
+    return getRandom(CityProblems)
+}
+export const getCityAesthetic = () => {
+    return getRandom(CityAesthetics)
+}
+export const getCityValue = () => {
+    return getRandom(CityValues)
+}
+export const getDistrict = () => {
+    return getRandom(Districts)
 }

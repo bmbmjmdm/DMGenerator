@@ -23,29 +23,29 @@ import {
 const tab:TabInfo = {
     cards: {
       ID: {
-        icon: <IDSVG />,
+        icon: IDSVG,
         lists: [getRandomName, getRandomRace, getRandomAccent],
       },
       Appearance: {
-        icon: <BeardSVG />,
+        icon: BeardSVG,
         lists: [getRandomAppearance],
       },
       Personality: {
-        icon: <SnapSVG />,
+        icon: SnapSVG,
         lists: [getRandomPersonality],
       },
       Motivation: {
-        icon: <HeartSVG />,
+        icon: HeartSVG,
         lists: [getRandomMotivation, getRandomBackground],
       },
       Equipment: {
-        icon: <BagSVG />,
+        icon: BagSVG,
         lists: [getRandomEquipment],
       },
       Ability: {
-        icon: <SparkleSVG />,
+        icon: SparkleSVG,
         lists: [getRandomAbility],
-        large: true,
+        single: true,
       }
     },
     theme: {
