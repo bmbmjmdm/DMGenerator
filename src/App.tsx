@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import CharacterTab from './CharacterTab'
+import CityTab from './CityTab'
 import LinearGradient from 'react-native-linear-gradient';
 import Tab, { CardDetails } from './Tab';
 
@@ -56,11 +57,13 @@ function App(): React.JSX.Element {
     <ThemeContext.Provider value={theme}>
       <SafeAreaView style={{backgroundColor: theme.secondaryColor}}>
         <StatusBar backgroundColor={theme.secondaryColor} />
-          <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={[theme.primaryColor, theme.primaryColor, theme.white]} style={{ position: "absolute", top: -150, left: -100, borderRadius: 999, width: 600, height: 600}}>
-            <Image source={icon} style={{width: 330, height: 330 * iconRatio, top: 165, left: 155}} />
+        <View style={{width: "100%", alignItems: "center", position: "absolute", top: -150, }}>
+          <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={[theme.primaryColor, theme.primaryColor, theme.white]} style={{ borderRadius: 999, width: 600, height: 600, alignItems: "center"}}>
+            <Image source={icon} style={{width: 330, height: 330 * iconRatio, top: 165 * 1/iconRatio}} />
           </LinearGradient >
+        </View>
         <ScrollView style={{height: scrollHeight || "100%"}} alwaysBounceVertical overScrollMode={'always'} contentInsetAdjustmentBehavior="automatic">
-          <Tab cards={cards} />
+          <Tab cards={cards} key={tab.iconRatio} />
         </ScrollView>
         <View onLayout={onLayout} style={{
           flexDirection: 'row',
@@ -69,7 +72,10 @@ function App(): React.JSX.Element {
           padding: 20,
         }}>
           <TouchableOpacity onPress={() => setTab(CharacterTab)} >
-            <Image source={CharacterTab.icon} style={{width: 50, height: 60}} />
+            <Image source={CharacterTab.icon} style={{width: 50, height: 60, marginRight: 20}} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setTab(CityTab)} >
+            <Image source={CityTab.icon} style={{width: 50, height: 60}} />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

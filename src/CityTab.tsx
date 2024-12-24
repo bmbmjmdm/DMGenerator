@@ -1,5 +1,4 @@
-/*
-import BuildingIcon from '../assets/building.png'
+import CityIcon from '../assets/city.png'
 import { TabInfo } from './App'
 import {
   getCityName,
@@ -22,11 +21,11 @@ import {
 
 const tab:TabInfo = {
     cards: {
-      Basicsx: {
+      Basics: {
         icon: SignSVG,
         lists: [getCityName, getCitySize, getGovernment],
       },
-      Aesthetics: {
+      Aesthetic: {
         icon: FountainSVG,
         lists: [getCityAesthetic],
       },
@@ -43,24 +42,35 @@ const tab:TabInfo = {
         lists: [getCityValue],
         single: true,
       },
-      Districts: {
+      Sites: {
         icon: MapSVG,
         lists: [getDistrict],
       },
     },
     theme: {
-      secondaryColor: "#735CDD",
-      primaryColor: "#B6E9FF",
-      repickColor: "#735CDD90",
-      deleteColor: "#EF476F80",
-      addColor: "#56E39Faa",
-      favoriteColor: "#56E39F",
+      secondaryColor: "#D7B003",
+      primaryColor: "#A19B95",
+      repickColor: "#D7B003aa",
+      deleteColor: "#AC393177",
+      addColor: "#7BA86180",
+      favoriteColor: "#7BA861",
       black: "#000000",
       white: "#FFFFFF",
     },
-    icon: BuildingIcon,
-    iconRatio: Math.round(100 * x/y)/100,
+    icon: CityIcon,
+    iconRatio: Math.round(100 * 928/700)/100,
 }
+/*
 
+    theme: {
+      secondaryColor: "#A4508B",
+      primaryColor: "#A19B95",
+      repickColor: "#A4508B90",
+      deleteColor: "#EEB4B3",
+      addColor: "#73956Faa",
+      favoriteColor: "#73956F",
+      black: "#000000",
+      white: "#FFFFFF",
+    },
+    */
 export default tab
-*/
