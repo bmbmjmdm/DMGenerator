@@ -54,6 +54,7 @@ const tab: TabInfo = {
   icon: HeadIcon,
   iconRatio: Math.round((100 * 655) / 540) / 100,
   name: 'NPC',
+  darkStatusBarText: false,
 };
 
 export default tab;

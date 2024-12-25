@@ -13,6 +13,7 @@ import CharacterTab from './CharacterTab';
 import CityTab from './CityTab';
 import CityEncounterTab from './CityEncounterTab';
 import WildernessEncounterTab from './WildernessEncounterTab';
+import QuestTab from './QuestTab';
 import LinearGradient from 'react-native-linear-gradient';
 import Tab, {CardDetails} from './Tab';
 import MenuButton from './MenuButton';
@@ -23,6 +24,7 @@ export type TabInfo = {
   icon: ImageSourcePropType;
   iconRatio: number;
   name: string;
+  darkStatusBarText: boolean;
 };
 
 export type Theme = {
@@ -38,7 +40,7 @@ export type Theme = {
 
 export const ThemeContext = createContext(CharacterTab.theme);
 
-const tabs = [CharacterTab, CityTab, CityEncounterTab, WildernessEncounterTab];
+const tabs = [CharacterTab, CityTab, CityEncounterTab, WildernessEncounterTab, QuestTab];
 
 function App(): React.JSX.Element {
   const [tab, setTab] = useState(CharacterTab);
@@ -46,6 +48,7 @@ function App(): React.JSX.Element {
   const firstRender = useRef(true);
   const theme = tab.theme;
   const icon = tab.icon;
+  const darkStatusBarText = tab.darkStatusBarText;
   const iconRatio = tab.iconRatio;
 
   // manually set the height of the scrollview so we have the perfect amount of space for the navbar
@@ -60,7 +63,7 @@ function App(): React.JSX.Element {
   return (
     <ThemeContext.Provider value={theme}>
       <SafeAreaView style={{backgroundColor: theme.secondaryColor}}>
-        <StatusBar backgroundColor={theme.secondaryColor} />
+        <StatusBar barStyle={darkStatusBarText ? "dark-content" : "light-content"} backgroundColor={theme.secondaryColor} />
         <View
           style={{
             width: '100%',

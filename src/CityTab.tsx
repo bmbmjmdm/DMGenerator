@@ -60,6 +60,7 @@ const tab: TabInfo = {
   icon: CityIcon,
   iconRatio: Math.round((100 * 994) / 750) / 100,
   name: 'City',
+  darkStatusBarText: false
 };
 /*
 

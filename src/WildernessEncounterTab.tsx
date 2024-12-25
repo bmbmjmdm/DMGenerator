@@ -12,17 +12,18 @@ const tab: TabInfo = {
   theme: {
     secondaryColor: '#DAB6C4',
     primaryColor: '#54904E',
-    repickColor: '#A19B95aa',
     black: '#000000',
     white: '#FFFFFF',
     favoriteColor: '#54F176',
     // unused
     deleteColor: '#EEB4B3',
+    repickColor: '#DAB6C4',
     addColor: '#1C7C5477',
   },
   icon: AnimalAttackIcon,
   iconRatio: Math.round((100 * 436) / 400) / 100,
   name: 'Path\nEncounter',
+  darkStatusBarText: true
 };
 
 export default tab;
