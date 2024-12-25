@@ -31,12 +31,14 @@ function Card ({icon, rows, children} : CardProps): React.JSX.Element {
           }}>
             {rows}
           </View>
-          <View style={{
-            alignItems: "center",
-            justifyContent: "center"
-          }}>
-            {icon}
-          </View>
+          {icon ?
+            <View style={{
+              alignItems: "center",
+              justifyContent: "center"
+            }}>
+              {icon}
+            </View>
+          : null}
         </>
       )}
     </View>

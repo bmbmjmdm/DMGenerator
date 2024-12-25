@@ -9,7 +9,8 @@ import IconPlus from './IconPlus'
 import Pill from './Pill';
 
 export type CardDetails = {
-  icon: React.FC,
+  // Not including an icon also means that the user cant add/remove rows from this card
+  icon?: React.FC,
   // a card with only 1 provided list will use that list for each entry. it will have 2 default entries
   // a card with 2+ lists will have 1 default entry for each list, and subsequent entries will pick a random list
   lists: (() => string)[],
@@ -98,18 +99,18 @@ function Tab(props:TabProps): React.JSX.Element {
             return (
               <Card
                 icon={
-                  <IconPlus 
+                  icon ? <IconPlus 
                     name={cardName}
-                    icon={icon || View}
+                    icon={icon}
                     onPress={() => onAdd(cardName)}
                     longestDescription={[...descriptionList].sort((a, b) => b.length - a.length)[0].length}
-                  />
+                  /> : undefined
                 }
                 rows={descriptionList.map((text, index) => (
                   <DescriptionRow
                     text={text}
-                    onDelete={() => onRemove(cardName, index)}
-                    onRepick={() => onReloadSingle(cardName, index)}
+                    onDelete={icon ? () => onRemove(cardName, index) : undefined}
+                    onRepick={icon ? () => onReloadSingle(cardName, index) : undefined}
                     key={text}
                   />
                 ))}

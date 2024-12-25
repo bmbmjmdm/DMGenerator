@@ -59,7 +59,8 @@ const tab:TabInfo = {
       white: "#FFFFFF",
     },
     icon: HeadIcon,
-    iconRatio: Math.round(100 * 592/488)/100,
+    iconRatio: Math.round(100 * 655/540)/100,
+    name: "NPC"
 }
 
 export default tab

@@ -58,7 +58,8 @@ const tab:TabInfo = {
       white: "#FFFFFF",
     },
     icon: CityIcon,
-    iconRatio: Math.round(100 * 928/700)/100,
+    iconRatio: Math.round(100 * 994/750)/100,
+    name: "City"
 }
 /*
 

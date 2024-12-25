@@ -11,14 +11,18 @@ import {
 } from 'react-native';
 import CharacterTab from './CharacterTab'
 import CityTab from './CityTab'
+import CityEncounterTab from './CityEncounterTab'
+import WildernessEncounterTab from './WildernessEncounterTab'
 import LinearGradient from 'react-native-linear-gradient';
 import Tab, { CardDetails } from './Tab';
+import MenuButton from './MenuButton';
 
 export type TabInfo = {
   cards: Record<string, CardDetails>,
   theme: Theme,
   icon: ImageSourcePropType,
-  iconRatio: number
+  iconRatio: number,
+  name: string,
 }
 
 export type Theme = {
@@ -34,6 +38,8 @@ export type Theme = {
 }
 
 export const ThemeContext = createContext(CharacterTab.theme)
+
+const tabs = [CharacterTab, CityTab, CityEncounterTab, WildernessEncounterTab]
 
 function App(): React.JSX.Element {
   const [tab, setTab] = useState(CharacterTab)
@@ -71,12 +77,9 @@ function App(): React.JSX.Element {
           alignItems: 'center',
           padding: 20,
         }}>
-          <TouchableOpacity onPress={() => setTab(CharacterTab)} >
-            <Image source={CharacterTab.icon} style={{width: 50, height: 60, marginRight: 20}} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setTab(CityTab)} >
-            <Image source={CityTab.icon} style={{width: 50, height: 60}} />
-          </TouchableOpacity>
+          {tabs.map((tab, index) => (
+            <MenuButton key={index} tab={tab} first={index === 0} onPress={() => setTab(tab)} />
+          ))}
         </View>
       </SafeAreaView>
     </ThemeContext.Provider>

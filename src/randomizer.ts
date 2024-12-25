@@ -15,6 +15,8 @@ import CityProblems from "../lists/cityProblems"
 import CityAesthetics from "../lists/cityAesthetics"
 import CityValues from "../lists/cityValues"
 import Districts from "../lists/cityDistricts"
+import CityEncounters from "../lists/encountersCity"
+import WildernessEncounters from "../lists/encountersWild"
 
 
 const getRandom = (list: string[]) => {
@@ -82,4 +84,11 @@ export const getCityValue = () => {
 }
 export const getDistrict = () => {
     return getRandom(Districts)
+}
+
+export const getCityEncounter = () => {
+    return getRandom(CityEncounters)
+}
+export const getWildernessEncounter = () => {
+    return getRandom(WildernessEncounters)
 }

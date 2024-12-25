@@ -12,8 +12,8 @@ import {
 
 type DescriptionRowProps = {
   text: string,
-  onDelete: () => void,
-  onRepick: () => void
+  onDelete?: () => void,
+  onRepick?: () => void,
 }
 
 
@@ -23,17 +23,23 @@ function DescriptionRow ({text, onDelete, onRepick} : DescriptionRowProps): Reac
       flexDirection: 'row',
       alignItems: "center"
     }}>
-      <TouchableOpacity hitSlop={10} style={{flex: 1}} onPress={onRepick}>
-        <ReloadSVG />
-      </TouchableOpacity>
+      {onRepick ?
+        <TouchableOpacity hitSlop={10} style={{flex: 1}} onPress={onRepick}>
+          <ReloadSVG />
+        </TouchableOpacity>
+        : null
+      }
       <Text style={{
         margin: 10,
         fontSize: 20,
         flex: 5
       }}>{text}</Text>
-      <TouchableOpacity style={{flex: 1}}  onPress={onDelete}>
-        <MinusSVG />
-      </TouchableOpacity>
+      {onDelete ?
+        <TouchableOpacity style={{flex: 1}}  onPress={onDelete}>
+          <MinusSVG />
+        </TouchableOpacity>
+        : null
+      }
     </View>
   )
 }
