@@ -22,6 +22,7 @@ export function MenuButton({
       setShowName(false);
     }, 1100);
   };
+
   return (
     <TouchableOpacity
       style={{

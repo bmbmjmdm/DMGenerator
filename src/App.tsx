@@ -99,6 +99,7 @@ function App(): React.JSX.Element {
         <View
           onLayout={onLayout}
           style={{
+            boxShadow: '0px -4px 10px rgba(0, 0, 0, 0.5)',
             flexDirection: 'row',
             backgroundColor: theme.secondaryColor,
             alignItems: 'center',
@@ -106,7 +107,7 @@ function App(): React.JSX.Element {
           }}>
           {tabs.map((tab, index) => (
             <MenuButton
-              key={index}
+              key={tab.name}
               tab={tab}
               first={index === 0}
               onPress={() => setTab(tab)}

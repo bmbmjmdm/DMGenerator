@@ -91,18 +91,17 @@ function Tab(props: TabProps): React.JSX.Element {
       {Object.keys(state).map((cardName: string) => {
         const descriptionList = state[cardName];
         const icon = props.cards[cardName].icon;
+        const longestDescription = descriptionList.length ? [...descriptionList].sort((a, b) => b.length - a.length)[0].length : 0
         return (
           <Card
+            key={cardName}
             icon={
               icon ? (
                 <IconPlus
                   name={cardName}
                   icon={icon}
                   onPress={() => onAdd(cardName)}
-                  longestDescription={
-                    [...descriptionList].sort((a, b) => b.length - a.length)[0]
-                      .length
-                  }
+                  longestDescription={longestDescription}
                 />
               ) : undefined
             }

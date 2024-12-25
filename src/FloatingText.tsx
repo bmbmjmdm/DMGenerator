@@ -9,8 +9,10 @@ export default function FloatingText({
   text,
   dynamicSize,
 }: FloatingTextProps): React.JSX.Element {
+  
   const opacity = useRef(new Animated.Value(1)).current;
   const top = useRef(new Animated.Value(-50)).current;
+
   useEffect(() => {
     Animated.timing(opacity, {
       toValue: 0,
@@ -23,6 +25,7 @@ export default function FloatingText({
       useNativeDriver: true,
     }).start();
   }, []);
+
   const longestLine = text
     .split('\n')
     .reduce((a, b) => (a.length > b.length ? a : b)).length;
