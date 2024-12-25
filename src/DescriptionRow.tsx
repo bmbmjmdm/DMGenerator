@@ -1,5 +1,5 @@
-import React, {createContext, useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, {createContext, useEffect, useState} from 'react';
+import {View, TouchableOpacity, Text, TextInput} from 'react-native';
 import {MinusSVG, ReloadSVG} from './SVGs';
 
 type DescriptionRowProps = {
@@ -13,6 +13,12 @@ function DescriptionRow({
   onDelete,
   onRepick,
 }: DescriptionRowProps): React.JSX.Element {
+  const [curText, setCurText] = useState(text);
+
+  useEffect(() => {
+    setCurText(text);
+  }, [text]);
+
   return (
     <View
       style={{
@@ -24,14 +30,14 @@ function DescriptionRow({
           <ReloadSVG />
         </TouchableOpacity>
       ) : null}
-      <Text
+      <TextInput
         style={{
-          margin: 10,
           fontSize: 20,
           flex: 5,
-        }}>
-        {text}
-      </Text>
+        }}
+        multiline
+        onChangeText={newText => setCurText(newText)}
+        value={curText} />
       {onDelete ? (
         <TouchableOpacity style={{flex: 1}} onPress={onDelete}>
           <MinusSVG />

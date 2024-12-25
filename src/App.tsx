@@ -47,7 +47,6 @@ function App(): React.JSX.Element {
   const theme = tab.theme;
   const icon = tab.icon;
   const iconRatio = tab.iconRatio;
-  const cards = tab.cards;
 
   // manually set the height of the scrollview so we have the perfect amount of space for the navbar
   const onLayout = (e: LayoutChangeEvent) => {
@@ -94,7 +93,9 @@ function App(): React.JSX.Element {
           alwaysBounceVertical
           overScrollMode={'always'}
           contentInsetAdjustmentBehavior="automatic">
-          <Tab cards={cards} key={tab.iconRatio} />
+          {tabs.map((eachTab, index) => (
+            <Tab cards={eachTab.cards} key={eachTab.name} display={eachTab.name === tab.name} />
+          ))}
         </ScrollView>
         <View
           onLayout={onLayout}

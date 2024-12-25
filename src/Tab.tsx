@@ -5,6 +5,8 @@ import DescriptionRow from './DescriptionRow';
 import IconPlus from './IconPlus';
 import Pill from './Pill';
 
+// TODO make switching tabs more performant by retrieving cards/state/freeform from redux rather than passing in "display"
+
 export type CardDetails = {
   // Not including an icon also means that the user cant add/remove rows from this card
   icon?: React.FC;
@@ -17,9 +19,10 @@ export type CardDetails = {
 
 type TabProps = {
   cards: Record<string, CardDetails>;
+  display:boolean
 };
 
-function Tab(props: TabProps): React.JSX.Element {
+function Tab({cards, display}: TabProps): React.JSX.Element {
   // Use a single useState to manage state for all cards
   const [state, setState] = useState<Record<string, string[]>>({});
   const [freeform, setFreeform] = useState('');
@@ -31,8 +34,8 @@ function Tab(props: TabProps): React.JSX.Element {
   const onFavorite = () => {};
 
   const onReload = () => {
-    const newState = Object.keys(props.cards).reduce((acc, cardName) => {
-      const card = props.cards[cardName];
+    const newState = Object.keys(cards).reduce((acc, cardName) => {
+      const card = cards[cardName];
       const lists = card.lists;
       // each card is a list of texts
       acc[cardName] = [];
@@ -59,7 +62,7 @@ function Tab(props: TabProps): React.JSX.Element {
 
   const onReloadSingle = (cardTitle: string, entry: number) => {
     // we need to retrieve the appropriate text getter/list
-    const card = props.cards[cardTitle];
+    const card = cards[cardTitle];
     let getter;
     // try to get the same list as the entry
     if (entry < card.lists.length) getter = card.lists[entry];
@@ -81,7 +84,7 @@ function Tab(props: TabProps): React.JSX.Element {
   };
 
   return (
-    <View>
+    <View style={{display: display ? 'flex' : 'none'}}>
       <View
         style={{width: '100%', justifyContent: 'center', flexDirection: 'row'}}>
         <Pill type="Reload" onPress={onReload} />
@@ -90,7 +93,7 @@ function Tab(props: TabProps): React.JSX.Element {
 
       {Object.keys(state).map((cardName: string) => {
         const descriptionList = state[cardName];
-        const icon = props.cards[cardName].icon;
+        const icon = cards[cardName].icon;
         const longestDescription = descriptionList.length ? [...descriptionList].sort((a, b) => b.length - a.length)[0].length : 0
         return (
           <Card
