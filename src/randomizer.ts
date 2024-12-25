@@ -1,94 +1,93 @@
-import CharacterNames from "../lists/names"
-import Races from "../lists/races"
-import CharacterAppearances from "../lists/appearance"
-import Personalities from "../lists/personalities"
-import CharacterBackgrounds from "../lists/backgrounds"
-import Motivations from "../lists/motivations"
-import Equipment from "../lists/equipment"
-import Accents from "../lists/accents"
-import Abilities from "../lists/abilities"
-import CityNames from "../lists/cityNames"
-import CitySizes from "../lists/citySizes"
-import Governments from "../lists/cityGovernments"
-import Productions from "../lists/cityProduction"
-import CityProblems from "../lists/cityProblems"
-import CityAesthetics from "../lists/cityAesthetics"
-import CityValues from "../lists/cityValues"
-import Districts from "../lists/cityDistricts"
-import CityEncounters from "../lists/encountersCity"
-import WildernessEncounters from "../lists/encountersWild"
-
+import CharacterNames from '../lists/names';
+import Races from '../lists/races';
+import CharacterAppearances from '../lists/appearance';
+import Personalities from '../lists/personalities';
+import CharacterBackgrounds from '../lists/backgrounds';
+import Motivations from '../lists/motivations';
+import Equipment from '../lists/equipment';
+import Accents from '../lists/accents';
+import Abilities from '../lists/abilities';
+import CityNames from '../lists/cityNames';
+import CitySizes from '../lists/citySizes';
+import Governments from '../lists/cityGovernments';
+import Productions from '../lists/cityProduction';
+import CityProblems from '../lists/cityProblems';
+import CityAesthetics from '../lists/cityAesthetics';
+import CityValues from '../lists/cityValues';
+import Districts from '../lists/cityDistricts';
+import CityEncounters from '../lists/encountersCity';
+import WildernessEncounters from '../lists/encountersWild';
 
 const getRandom = (list: string[]) => {
-    return list[Math.floor(list.length * Math.random())]
-}
+  return list[Math.floor(list.length * Math.random())];
+};
 
 export const getRandomName = () => {
-    return getRandom(CharacterNames) + " " + getRandom(CharacterNames)
-}
+  return getRandom(CharacterNames) + ' ' + getRandom(CharacterNames);
+};
 
 export const getRandomRace = () => {
-    return getRandom(Races)
-}
+  return getRandom(Races);
+};
 
 export const getRandomAppearance = () => {
-    return getRandom(CharacterAppearances)
-}
+  return getRandom(CharacterAppearances);
+};
 
 export const getRandomPersonality = () => {
-    return getRandom(Personalities)
-}
+  return getRandom(Personalities);
+};
 
 export const getRandomBackground = () => {
-    return getRandom(CharacterBackgrounds)
-}
+  return getRandom(CharacterBackgrounds);
+};
 
 export const getRandomMotivation = () => {
-    return getRandom(Motivations)
-}
+  return getRandom(Motivations);
+};
 
 export const getRandomEquipment = () => {
-    return getRandom(Equipment)
-}
+  return getRandom(Equipment);
+};
 
 export const getRandomAccent = () => {
-    return getRandom(Accents)
-}
+  return getRandom(Accents);
+};
 
 export const getRandomAbility = () => {
-    return getRandom(Abilities)
-}
+  return getRandom(Abilities);
+};
 export const getCityName = () => {
-    return getRandom(CityNames)
-}
+  return getRandom(CityNames);
+};
 
 export const getCitySize = () => {
-    return getRandom(CitySizes)
-}
+  return getRandom(CitySizes);
+};
 
 export const getGovernment = () => {
-    return getRandom(Governments)
-}
+  return getRandom(Governments);
+};
 
 export const getProduction = () => {
-    return getRandom(Productions)
-}
+  return getRandom(Productions);
+};
 export const getCityProblem = () => {
-    return getRandom(CityProblems)
-}
+  return getRandom(CityProblems);
+};
 export const getCityAesthetic = () => {
-    return getRandom(CityAesthetics)
-}
+  return getRandom(CityAesthetics);
+};
 export const getCityValue = () => {
-    return getRandom(CityValues)
-}
+  return getRandom(CityValues);
+};
 export const getDistrict = () => {
-    return getRandom(Districts)
-}
+  return getRandom(Districts);
+};
 
 export const getCityEncounter = () => {
-    return getRandom(CityEncounters)
-}
+  return getRandom(CityEncounters);
+};
 export const getWildernessEncounter = () => {
-    return getRandom(WildernessEncounters)
-}
+  return getRandom(WildernessEncounters);
+};
