@@ -14,10 +14,16 @@ function DescriptionRow({
   onRepick,
 }: DescriptionRowProps): React.JSX.Element {
   const [curText, setCurText] = useState(text);
+  const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>({ start: 0 });
 
   useEffect(() => {
     setCurText(text);
+    setCursorPosition({ start: 0 })
+    setTimeout(() => {
+      setCursorPosition(undefined)
+    }, 100)
   }, [text]);
+
 
   return (
     <View
@@ -34,10 +40,13 @@ function DescriptionRow({
         style={{
           fontSize: 20,
           flex: 5,
+          maxHeight: 400
         }}
         multiline
         onChangeText={newText => setCurText(newText)}
-        value={curText} />
+        value={curText}
+        selection={cursorPosition}
+      />
       {onDelete ? (
         <TouchableOpacity style={{flex: 1}} onPress={onDelete}>
           <MinusSVG />

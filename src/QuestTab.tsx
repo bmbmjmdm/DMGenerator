@@ -1,15 +1,13 @@
 import { View } from 'react-native';
 import QuestIcon from '../assets/quest.png';
 import {TabInfo} from './App';
-import {
-} from './randomizer';
-import {} from './SVGs';
+import {getQuest} from './randomizer';
 
 const tab: TabInfo = {
   cards: {
-    test: {
-      lists: [() => Math.random().toString()],
-      icon: View
+    Encounter: {
+      lists: [getQuest],
+      single: true,
     },
   },
   theme: {

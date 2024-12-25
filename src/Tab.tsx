@@ -25,7 +25,6 @@ type TabProps = {
 function Tab({cards, display}: TabProps): React.JSX.Element {
   // Use a single useState to manage state for all cards
   const [state, setState] = useState<Record<string, string[]>>({});
-  const [freeform, setFreeform] = useState('');
 
   useEffect(() => {
     onReload();
@@ -122,14 +121,14 @@ function Tab({cards, display}: TabProps): React.JSX.Element {
         );
       })}
 
-      <Card>
-        <TextInput
-          style={{width: '100%', fontSize: 20}}
-          multiline
-          value={freeform}
-          onChangeText={text => setFreeform(text)}
+
+        <Card
+          rows={[
+            <DescriptionRow
+              text={""}
+            />
+          ]}
         />
-      </Card>
     </View>
   );
 }
