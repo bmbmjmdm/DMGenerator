@@ -3,12 +3,12 @@ import {TabInfo} from './App';
 import {
   getCombatImprovements,
   getRoleplayImprovements,
-  getSceneImprovements
+  //getSceneImprovements
 } from './randomizer';
 import {
   SwordsSVG,
   DramaSVG,
-  RainbowSVG
+  //RainbowSVG
 } from './SVGs';
 
 const tab: TabInfo = {
@@ -21,16 +21,16 @@ const tab: TabInfo = {
       lists: [getRoleplayImprovements],
       icon: DramaSVG
     },
-    Scene: {
+    /*Scene: {
       lists: [getSceneImprovements],
       icon: RainbowSVG
-    },
+    },*/
   },
   theme: {
     secondaryColor: '#870058',
     primaryColor: '#B67AEA',
     repickColor: '#87005880',
-    deleteColor: '#AC393177',
+    deleteColor: '#FF666667',
     addColor: '#7BA861aa',
     favoriteColor: '#7BA861',
     black: '#000000',

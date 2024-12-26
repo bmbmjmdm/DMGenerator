@@ -568,4 +568,5 @@ export default [
 "Wisecracker",
 "World-Weary",
 "Zealous",
+"Is always taking their jacket (or some article of clothing) off and putting it back on."
 ]
