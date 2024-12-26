@@ -18,6 +18,7 @@ import Districts from '../lists/cityDistricts';
 import CityEncounters from '../lists/encountersCity';
 import WildernessEncounters from '../lists/encountersWild';
 import Quests from '../lists/quests';
+import CombatImprovements from '../lists/combat';
 
 const getRandom = (list: string[]) => {
   return list[Math.floor(list.length * Math.random())];
@@ -94,4 +95,7 @@ export const getWildernessEncounter = () => {
 };
 export const getQuest = () => {
   return getRandom(Quests);
+}
+export const getCombatImprovements = () => {
+  return getRandom(CombatImprovements);
 }

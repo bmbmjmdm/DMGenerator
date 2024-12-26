@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import CharacterTab from './CharacterTab';
+import MiscTab from './MiscTab';
 import CityTab from './CityTab';
 import CityEncounterTab from './CityEncounterTab';
 import WildernessEncounterTab from './WildernessEncounterTab';
@@ -40,7 +41,7 @@ export type Theme = {
 
 export const ThemeContext = createContext(CharacterTab.theme);
 
-const tabs = [CharacterTab, CityTab, CityEncounterTab, WildernessEncounterTab, QuestTab];
+const tabs = [CharacterTab, CityTab, CityEncounterTab, WildernessEncounterTab, QuestTab, MiscTab];
 
 function App(): React.JSX.Element {
   const [tab, setTab] = useState(CharacterTab);

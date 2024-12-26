@@ -13,12 +13,13 @@ const tab: TabInfo = {
   theme: {
     secondaryColor: '#ADD2C2',
     primaryColor: '#FBBB72',
-    repickColor: '#91B1A3',
-    deleteColor: '#DB546180',
-    addColor: '#3A9F7280',
     favoriteColor: '#3A9F72',
     black: '#000000',
     white: '#FFFFFF',
+    // unused
+    repickColor: '#91B1A3',
+    deleteColor: '#DB546180',
+    addColor: '#3A9F7280',
   },
   icon: QuestIcon,
   iconRatio: Math.round((100 * 550) / 503) / 100,
