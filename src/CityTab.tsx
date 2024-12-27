@@ -48,7 +48,7 @@ const tab: TabInfo = {
     },
   },
   theme: {
-    secondaryColor: '#D7B003',
+    secondaryColor: '#D3BD57', //#E5F77D D7B003
     primaryColor: '#A19B95',
     repickColor: '#D7B003aa',
     deleteColor: '#AC393177',

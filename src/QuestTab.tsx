@@ -1,13 +1,26 @@
 import { View } from 'react-native';
 import QuestIcon from '../assets/quest.png';
 import {TabInfo} from './App';
-import {getQuest} from './randomizer';
+import {
+  getQuest,
+  getQuestAntagonist,
+  getQuestLocation,
+  getQuestReward,
+  getQuestMotivation,
+  getQuestType,
+
+} from './randomizer';
+import { SparkleSVG } from './SVGs';
 
 const tab: TabInfo = {
   cards: {
-    Encounter: {
+    Quest: {
       lists: [getQuest],
       single: true,
+    },
+    "Random Quest": {
+      lists: [getQuestType, getQuestMotivation, getQuestLocation, getQuestReward, getQuestAntagonist],
+      icon: SparkleSVG,
     },
   },
   theme: {

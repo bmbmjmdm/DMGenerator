@@ -20,6 +20,11 @@ import WildernessEncounters from '../lists/encountersWild';
 import Quests from '../lists/quests';
 import CombatImprovements from '../lists/combat';
 import RoleplayImprovements from '../lists/drama';
+import questAntagonists from '../lists/questAntagonists';
+import questLocations from '../lists/questLocations';
+import questRewards from '../lists/questRewards';
+import questTypes from '../lists/questTypes';
+import questMotivations from '../lists/questMotivations';
 
 const getRandom = (list: string[]) => {
   return list[Math.floor(list.length * Math.random())];
@@ -102,4 +107,19 @@ export const getCombatImprovements = () => {
 }
 export const getRoleplayImprovements = () => {
   return getRandom(RoleplayImprovements);
+}
+export const getQuestAntagonist = () => {
+  return getRandom(questAntagonists);
+}
+export const getQuestLocation = () => {
+  return getRandom(questLocations);
+}
+export const getQuestReward = () => {
+  return getRandom(questRewards);
+}
+export const getQuestType = () => {
+  return getRandom(questTypes);
+}
+export const getQuestMotivation = () => {
+  return getRandom(questMotivations);
 }
