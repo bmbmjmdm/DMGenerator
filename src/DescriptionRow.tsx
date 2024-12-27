@@ -1,5 +1,5 @@
-import React, {createContext, useEffect, useState} from 'react';
-import {View, TouchableOpacity, Text, TextInput} from 'react-native';
+import React, {createContext, useEffect, useRef, useState} from 'react';
+import {View, TouchableOpacity, Text, TextInput, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
 import {MinusSVG, ReloadSVG} from './SVGs';
 
 type DescriptionRowProps = {
@@ -17,50 +17,72 @@ function DescriptionRow({
 }: DescriptionRowProps): React.JSX.Element {
   const [curText, setCurText] = useState(text);
   const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>({ start: 0 });
+  const textInputRef = useRef<TextInput>(null);
 
   useEffect(() => {
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      if (textInputRef.current) {
+        textInputRef.current.blur();
+      }
+    });
+
+    return () => {
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("resetting text")
     setCurText(text);
-    setCursorPosition({ start: 0 })
-    setTimeout(() => {
-      setCursorPosition(undefined)
-    }, 100)
+    if (text?.length > 550) {
+      setCursorPosition({ start: 0 })
+      setTimeout(() => {
+        setCursorPosition(undefined)
+      }, 100)
+    }
   }, [text]);
 
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}>
-      {onRepick ? (
-        <TouchableOpacity hitSlop={10} style={{flex: 1}} onPress={onRepick}>
-          <ReloadSVG />
-        </TouchableOpacity>
-      ) : null}
-      <TextInput
+    <KeyboardAvoidingView
+      keyboardVerticalOffset = {Platform.OS === 'ios' ? 0 : 100}
+      behavior={'padding'}
+    >
+      <View
         style={{
-          fontSize: 20,
-          flex: 5,
-          maxHeight: 400,
-          color: 'black'
-        }}
-        multiline
-        onChangeText={newText => {
-          setCurText(newText)
-        }}
-        onBlur={() => {
-          onUpdateText(curText)
-        }}
-        value={curText}
-        selection={cursorPosition}
-      />
-      {onDelete ? (
-        <TouchableOpacity style={{flex: 1}} onPress={onDelete}>
-          <MinusSVG />
-        </TouchableOpacity>
-      ) : null}
-    </View>
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
+        {onRepick ? (
+          <TouchableOpacity hitSlop={10} style={{flex: 1}} onPress={onRepick}>
+            <ReloadSVG />
+          </TouchableOpacity>
+        ) : null}
+        <TextInput
+          style={{
+            fontSize: 20,
+            flex: 5,
+            maxHeight: 400,
+            color: 'black'
+          }}
+          multiline
+          onChangeText={newText => {
+            setCurText(newText)
+          }}
+          onBlur={() => {
+            onUpdateText(curText)
+          }}
+          value={curText}
+          selection={cursorPosition}
+          ref={textInputRef}
+        />
+        {onDelete ? (
+          <TouchableOpacity style={{flex: 1}} onPress={onDelete}>
+            <MinusSVG />
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
