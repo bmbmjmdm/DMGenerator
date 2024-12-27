@@ -18,6 +18,7 @@ function DescriptionRow({
   const [curText, setCurText] = useState(text);
   const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>(undefined);
   const textInputRef = useRef<TextInput>(null);
+  //const previousText = useRef<string | undefined>(undefined);
 
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
@@ -31,8 +32,20 @@ function DescriptionRow({
     };
   }, []);
 
-  useEffect(() => {
-    console.log("resetting text")
+  useEffect(() => {/*
+    this successfully stops the useEffect from going triggered by changing
+    the parents text value
+    however the problem still remains (i think) that onblur will auto set a text
+    field to the end of it. so i need to solve BOTH. in the meantime,
+    sending the user to the top is better than sending them to the bottom
+    also have to uncomment curText and previousText
+
+    if (previousText.current === text) return
+    if (text === curText) return
+
+    previousText.current = text
+    console.log("big update")
+    console.log("resetting text")*/
     setCurText(text);
     if (text?.length > 550) {
       setCursorPosition({ start: 0 })
@@ -40,8 +53,7 @@ function DescriptionRow({
         setCursorPosition(undefined)
       }, 100)
     }
-  }, [text]);
-
+  }, [text, /*curText*/]);
 
   return (
     <KeyboardAvoidingView
