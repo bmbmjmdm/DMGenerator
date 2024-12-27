@@ -7,8 +7,7 @@ import Pill from './Pill';
 import Favorites, { FavoritesRef } from './Favorites';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectState, selectTabName, setState } from './redux';
-
-// TODO make switching tabs more performant by retrieving cards/state/freeform from redux rather than passing in "display"
+import {cloneDeep} from 'lodash';
 
 export type CardDetails = {
   // Not including an icon also means that the user cant add/remove rows from this card
@@ -65,11 +64,14 @@ function Tab({cards}: TabProps): React.JSX.Element {
       }
       return acc;
     }, {} as Record<string, string[]>);
+
+    newState.freeform = [''];
     
     setStateWrapper(newState);
   };
 
-  const onReloadSingle = (cardTitle: string, entry: number) => {
+  const onReloadSingle = (cardTitle: string, entry: number, premadeNewState?: Record<string, string[]>) => {
+    console.log("1")
     // we need to retrieve the appropriate text getter/list
     const card = cards[cardTitle];
     let getter;
@@ -78,18 +80,22 @@ function Tab({cards}: TabProps): React.JSX.Element {
     // if we've gone past the number of lists, choose one randomly
     else getter = card.lists[Math.floor(Math.random() * card.lists.length)];
     // now get a text from the list
-    state[cardTitle][entry] = getter();
-    setStateWrapper({...state});
+    const newState = premadeNewState || cloneDeep(state)
+    newState[cardTitle][entry] = getter();
+    console.log(newState[cardTitle][entry])
+    setStateWrapper(newState);
   };
 
   const onRemove = (cardTitle: string, entry: number) => {
-    state[cardTitle].splice(entry, 1);
-    setStateWrapper({...state});
+    const newState = cloneDeep(state)
+    newState[cardTitle].splice(entry, 1);
+    setStateWrapper(newState);
   };
 
   const onAdd = (cardTitle: string) => {
-    state[cardTitle].push('');
-    onReloadSingle(cardTitle, state[cardTitle].length - 1);
+    const newState = cloneDeep(state)
+    newState[cardTitle].push('');
+    onReloadSingle(cardTitle, newState[cardTitle].length - 1, newState);
   };
 
   return (
@@ -102,6 +108,7 @@ function Tab({cards}: TabProps): React.JSX.Element {
       </View>
 
       {Object.keys(state).map((cardName: string) => {
+        if (cardName === 'freeform') return;
         const descriptionList = state[cardName];
         const icon = cards[cardName].icon;
         const longestDescription = descriptionList.length ? [...descriptionList].sort((a, b) => b.length - a.length)[0].length : 0
@@ -126,6 +133,11 @@ function Tab({cards}: TabProps): React.JSX.Element {
                   icon ? () => onReloadSingle(cardName, index) : undefined
                 }
                 key={text}
+                onUpdateText={(newText) => {
+                  const newState = cloneDeep(state);
+                  newState[cardName][index] = newText;
+                  setStateWrapper(newState);
+                }}
               />
             ))}
           />
@@ -136,7 +148,12 @@ function Tab({cards}: TabProps): React.JSX.Element {
         <Card
           rows={[
             <DescriptionRow
-              text={""}
+              text={state.freeform?.[0]}
+              onUpdateText={(newText) => {
+                const newState = cloneDeep(state);
+                newState.freeform = [newText];
+                setStateWrapper(newState);
+              }}
             />
           ]}
         />

@@ -6,12 +6,14 @@ type DescriptionRowProps = {
   text: string;
   onDelete?: () => void;
   onRepick?: () => void;
+  onUpdateText: (newText: string) => void;
 };
 
 function DescriptionRow({
   text,
   onDelete,
   onRepick,
+  onUpdateText
 }: DescriptionRowProps): React.JSX.Element {
   const [curText, setCurText] = useState(text);
   const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>({ start: 0 });
@@ -40,10 +42,16 @@ function DescriptionRow({
         style={{
           fontSize: 20,
           flex: 5,
-          maxHeight: 400
+          maxHeight: 400,
+          color: 'black'
         }}
         multiline
-        onChangeText={newText => setCurText(newText)}
+        onChangeText={newText => {
+          setCurText(newText)
+        }}
+        onBlur={() => {
+          onUpdateText(curText)
+        }}
         value={curText}
         selection={cursorPosition}
       />
