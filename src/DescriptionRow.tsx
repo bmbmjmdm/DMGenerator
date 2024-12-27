@@ -16,7 +16,7 @@ function DescriptionRow({
   onUpdateText
 }: DescriptionRowProps): React.JSX.Element {
   const [curText, setCurText] = useState(text);
-  const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>({ start: 0 });
+  const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>(undefined);
   const textInputRef = useRef<TextInput>(null);
 
   useEffect(() => {
