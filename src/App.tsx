@@ -1,4 +1,4 @@
-import React, {createContext, useRef, useState} from 'react';
+import React, {createContext, useEffect, useRef, useState} from 'react';
 import {
   Image,
   ImageSourcePropType,
@@ -18,6 +18,8 @@ import QuestTab from './QuestTab';
 import LinearGradient from 'react-native-linear-gradient';
 import Tab, {CardDetails} from './Tab';
 import MenuButton from './MenuButton';
+import { Provider } from 'react-redux'
+import { selectFavoritesOpen, setCurTab, store } from './redux';
 
 export type TabInfo = {
   cards: Record<string, CardDetails>;
@@ -47,10 +49,30 @@ function App(): React.JSX.Element {
   const [tab, setTab] = useState(CharacterTab);
   const [scrollHeight, setScrollHeight] = useState(0);
   const firstRender = useRef(true);
+  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const theme = tab.theme;
   const icon = tab.icon;
   const darkStatusBarText = tab.darkStatusBarText;
   const iconRatio = tab.iconRatio;
+  const cards = tab.cards;
+
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      const newFavoritesOpen = selectFavoritesOpen(store.getState());
+      if (newFavoritesOpen !== isFavoritesOpen) {
+        setIsFavoritesOpen(newFavoritesOpen);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [isFavoritesOpen]);
+
+  const switchTab = (tab: TabInfo) => {
+    setTab(tab);
+    store.dispatch(setCurTab(tab.name))
+  }
 
   // manually set the height of the scrollview so we have the perfect amount of space for the navbar
   const onLayout = (e: LayoutChangeEvent) => {
@@ -62,65 +84,66 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <ThemeContext.Provider value={theme}>
-      <SafeAreaView style={{backgroundColor: theme.secondaryColor}}>
-        <StatusBar barStyle={darkStatusBarText ? "dark-content" : "light-content"} backgroundColor={theme.secondaryColor} />
-        <View
-          style={{
-            width: '100%',
-            alignItems: 'center',
-            position: 'absolute',
-            top: -150,
-          }}>
-          <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 1}}
-            colors={[theme.primaryColor, theme.primaryColor, theme.white]}
+    <Provider store={store}>
+      <ThemeContext.Provider value={theme}>
+        <SafeAreaView style={{backgroundColor: theme.secondaryColor}}>
+          <StatusBar barStyle={darkStatusBarText ? "dark-content" : "light-content"} backgroundColor={theme.secondaryColor} />
+          <View
             style={{
-              borderRadius: 999,
-              width: 600,
-              height: 600,
+              width: '100%',
               alignItems: 'center',
+              position: 'absolute',
+              top: -150,
             }}>
-            <Image
-              source={icon}
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 1}}
+              colors={[theme.primaryColor, theme.primaryColor, theme.white]}
               style={{
-                width: 330,
-                height: 330 * iconRatio,
-                top: (165 * 1) / iconRatio,
-              }}
-            />
-          </LinearGradient>
-        </View>
-        <ScrollView
-          style={{height: scrollHeight || '100%'}}
-          alwaysBounceVertical
-          overScrollMode={'always'}
-          contentInsetAdjustmentBehavior="automatic">
-          {tabs.map((eachTab, index) => (
-            <Tab cards={eachTab.cards} key={eachTab.name} display={eachTab.name === tab.name} />
-          ))}
-        </ScrollView>
-        <View
-          onLayout={onLayout}
-          style={{
-            boxShadow: '0px -4px 10px rgba(0, 0, 0, 0.5)',
-            flexDirection: 'row',
-            backgroundColor: theme.secondaryColor,
-            alignItems: 'center',
-            padding: 20,
-          }}>
-          {tabs.map((tab, index) => (
-            <MenuButton
-              key={tab.name}
-              tab={tab}
-              first={index === 0}
-              onPress={() => setTab(tab)}
-            />
-          ))}
-        </View>
-      </SafeAreaView>
-    </ThemeContext.Provider>
+                borderRadius: 999,
+                width: 600,
+                height: 600,
+                alignItems: 'center',
+              }}>
+              <Image
+                source={icon}
+                style={{
+                  width: 330,
+                  height: 330 * iconRatio,
+                  top: (165 * 1) / iconRatio,
+                }}
+              />
+            </LinearGradient>
+          </View>
+          <ScrollView
+            scrollEnabled={!isFavoritesOpen}
+            style={{height: scrollHeight || '100%'}}
+            alwaysBounceVertical
+            overScrollMode={'always'}
+            contentInsetAdjustmentBehavior="automatic">
+            <Tab cards={cards} />
+          </ScrollView>
+          <View
+            onLayout={onLayout}
+            style={{
+              boxShadow: '0px -4px 10px rgba(0, 0, 0, 0.5)',
+              flexDirection: 'row',
+              backgroundColor: theme.secondaryColor,
+              alignItems: 'center',
+              padding: 20,
+            }}>
+            {tabs.map((tab, index) => (
+              <MenuButton
+                key={tab.name}
+                tab={tab}
+                first={index === 0}
+                onPress={() => switchTab(tab)}
+              />
+            ))}
+          </View>
+        </SafeAreaView>
+      </ThemeContext.Provider>
+    </Provider>
   );
 }
 

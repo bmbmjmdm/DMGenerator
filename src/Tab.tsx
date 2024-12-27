@@ -4,6 +4,9 @@ import Card from './Card';
 import DescriptionRow from './DescriptionRow';
 import IconPlus from './IconPlus';
 import Pill from './Pill';
+import Favorites, { FavoritesRef } from './Favorites';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectState, selectTabName, setState } from './redux';
 
 // TODO make switching tabs more performant by retrieving cards/state/freeform from redux rather than passing in "display"
 
@@ -19,18 +22,25 @@ export type CardDetails = {
 
 type TabProps = {
   cards: Record<string, CardDetails>;
-  display:boolean
 };
 
-function Tab({cards, display}: TabProps): React.JSX.Element {
+function Tab({cards}: TabProps): React.JSX.Element {
   // Use a single useState to manage state for all cards
-  const [state, setState] = useState<Record<string, string[]>>({});
+  const dispatch = useDispatch();
+  const state = useSelector(selectState);
+  const curTab = useSelector(selectTabName);
+  const setStateWrapper = (newState: Record<string, string[]>) => dispatch(setState(newState));
+  const favoritesRef = React.createRef<FavoritesRef>();
 
   useEffect(() => {
-    onReload();
-  }, []);
+    if (Object.keys(state).length === 0) {
+      onReload();
+    }
+  }, [curTab]);
 
-  const onFavorite = () => {};
+  const onFavorite = () => {
+    favoritesRef.current?.showFavorites();
+  };
 
   const onReload = () => {
     const newState = Object.keys(cards).reduce((acc, cardName) => {
@@ -55,8 +65,8 @@ function Tab({cards, display}: TabProps): React.JSX.Element {
       }
       return acc;
     }, {} as Record<string, string[]>);
-
-    setState(newState);
+    
+    setStateWrapper(newState);
   };
 
   const onReloadSingle = (cardTitle: string, entry: number) => {
@@ -69,12 +79,12 @@ function Tab({cards, display}: TabProps): React.JSX.Element {
     else getter = card.lists[Math.floor(Math.random() * card.lists.length)];
     // now get a text from the list
     state[cardTitle][entry] = getter();
-    setState({...state});
+    setStateWrapper({...state});
   };
 
   const onRemove = (cardTitle: string, entry: number) => {
     state[cardTitle].splice(entry, 1);
-    setState({...state});
+    setStateWrapper({...state});
   };
 
   const onAdd = (cardTitle: string) => {
@@ -83,7 +93,8 @@ function Tab({cards, display}: TabProps): React.JSX.Element {
   };
 
   return (
-    <View style={{display: display ? 'flex' : 'none'}}>
+    <View>
+      <Favorites ref={favoritesRef} />
       <View
         style={{width: '100%', justifyContent: 'center', flexDirection: 'row'}}>
         <Pill type="Reload" onPress={onReload} />
@@ -107,7 +118,7 @@ function Tab({cards, display}: TabProps): React.JSX.Element {
                 />
               ) : undefined
             }
-            rows={descriptionList.map((text, index) => (
+            rows={descriptionList.map((text:string, index:number) => (
               <DescriptionRow
                 text={text}
                 onDelete={icon ? () => onRemove(cardName, index) : undefined}
