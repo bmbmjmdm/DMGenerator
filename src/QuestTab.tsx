@@ -20,6 +20,7 @@ const tab: TabInfo = {
     },
     "Random Quest": {
       lists: [getQuestType, getQuestMotivation, getQuestLocation, getQuestReward, getQuestAntagonist],
+      labels: ["Type", "Motivation", "Location", "Reward", "Antagonist"],
       icon: SparkleSVG,
     },
   },

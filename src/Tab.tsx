@@ -17,6 +17,7 @@ export type CardDetails = {
   lists: (() => string)[];
   // a card marked single will have only 1 default entry
   single?: boolean;
+  labels?: string[];
 };
 
 type TabProps = {
@@ -112,6 +113,7 @@ function Tab({cards}: TabProps): React.JSX.Element {
         const descriptionList = state[cardName];
         const icon = cards[cardName].icon;
         const longestDescription = descriptionList.length ? [...descriptionList].sort((a, b) => b.length - a.length)[0].length : 0
+        const labels = cards[cardName].labels;
         return (
           <Card
             key={cardName}
@@ -138,6 +140,7 @@ function Tab({cards}: TabProps): React.JSX.Element {
                   newState[cardName][index] = newText;
                   setStateWrapper(newState);
                 }}
+                label={labels?.[index]}
               />
             ))}
           />
