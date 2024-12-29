@@ -25,6 +25,7 @@ import questLocations from '../lists/questLocations';
 import questRewards from '../lists/questRewards';
 import questTypes from '../lists/questTypes';
 import questMotivations from '../lists/questMotivations';
+import sceneImprovements from '../lists/scene';
 
 const getRandom = (list: string[]) => {
   return list[Math.floor(list.length * Math.random())];
@@ -122,4 +123,7 @@ export const getQuestType = () => {
 }
 export const getQuestMotivation = () => {
   return getRandom(questMotivations);
+}
+export const getSceneImprovements = () => {
+  return getRandom(sceneImprovements);
 }

@@ -25,7 +25,6 @@ const tabSlice = createSlice({
   } as State,
   reducers: {
     setState (state, action) {
-      console.log("setting redux state")
       state[state.curTabName] = action.payload
     },
     setCurTab (state, action) {

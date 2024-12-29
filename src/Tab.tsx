@@ -72,7 +72,6 @@ function Tab({cards}: TabProps): React.JSX.Element {
   };
 
   const onReloadSingle = (cardTitle: string, entry: number, premadeNewState?: Record<string, string[]>) => {
-    console.log("1")
     // we need to retrieve the appropriate text getter/list
     const card = cards[cardTitle];
     let getter;
@@ -83,7 +82,6 @@ function Tab({cards}: TabProps): React.JSX.Element {
     // now get a text from the list
     const newState = premadeNewState || cloneDeep(state)
     newState[cardTitle][entry] = getter();
-    console.log(newState[cardTitle][entry])
     setStateWrapper(newState);
   };
 
