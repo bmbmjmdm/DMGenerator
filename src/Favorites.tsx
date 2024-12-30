@@ -6,6 +6,7 @@ import { selectFavoriteID, selectFavoritesOpen, selectState, selectTabName, setF
 import { useDispatch, useSelector } from 'react-redux';
 import { ExportSVG, StarSVG } from './SVGs';
 import RNFetchBlob from 'react-native-blob-util';
+import DocumentPicker from 'react-native-document-picker';
 
 export type FavoritesRef = {
   showFavorites: () => void;
@@ -131,29 +132,6 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
     setFavorites(newFavorites);
   }
 
-  const requestStoragePermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'Storage Permission',
-            message: 'We need permission to save your files.',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK',
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          console.log('You can use the storage');
-        } else {
-          console.log('Storage permission denied');
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-  };
-
   const writeFile = async (name:string, content:string) => {
     const localPath = RNFetchBlob.fs.dirs.DownloadDir + '/' + name;
     RNFetchBlob.fs.writeFile(localPath, content, 'utf8')
@@ -184,13 +162,13 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
   }
 
   const exportCurrentPage = async () => {
-    const stateString = JSON.stringify(state);
+    const stateString = JSON.stringify({type: "Single", data: state});
     const fileName = 'SingleFavorite.txt';
     await writeFile(fileName, stateString);
   }
 
   const exportCurrentTab = async () => {
-    const stateString = JSON.stringify(favorites);
+    const stateString = JSON.stringify({type: "Tab", data: favorites});
     const fileName = curTab + 'Favorites.txt';
     await writeFile(fileName, stateString);
   }
@@ -202,14 +180,59 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
     allFavoritesPairs.forEach((pair) => {
       allFavorites[pair[0]] = JSON.parse(pair[1] as string);
     });
-    const stateString = JSON.stringify(allFavorites);
+    const stateString = JSON.stringify({type: "All", data: allFavorites});
     const fileName = 'AllFavorites.txt';
     await writeFile(fileName, stateString);
   }
 
-  const importFile = () => {
-    // determine what type of import it is by the file contents:
-    // string is single favorite, array is tab favorites, object is all favorites
+  const importFile = async () => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.plainText],
+        allowMultiSelection: false
+      });
+      const fileContent = await RNFetchBlob.fs.readFile(res[0].uri, 'utf8');
+      const fileData = JSON.parse(fileContent);
+      switch (fileData.type) {
+        case "Single":
+          setStateWrapper(fileData.data);
+          Alert.alert("Success");
+          break;
+        case "Tab":
+          const allFavorites = [...favorites, ...fileData.data];
+          AsyncStorage.setItem(storageName, JSON.stringify(allFavorites));
+          setFavorites(allFavorites);
+          Alert.alert("Success");
+          break;
+        case "All":
+          const allStoredFavoritesKeys = await AsyncStorage.getAllKeys();
+          const allStoredFavoritesPairs = await AsyncStorage.multiGet(allStoredFavoritesKeys);
+          const allStoredFavorites:Record<string, StoredFavorite[]> = {};
+          allStoredFavoritesPairs.forEach((pair) => {
+            allStoredFavorites[pair[0]] = JSON.parse(pair[1] as string);
+          });
+          for (const tab in fileData.data) {
+            if (!allStoredFavorites[tab]) allStoredFavorites[tab] = [];
+            allStoredFavorites[tab] = [...allStoredFavorites[tab], ...fileData.data[tab]];
+            AsyncStorage.setItem(tab, JSON.stringify(allStoredFavorites[tab]));
+            if (tab.slice(9) === curTab) {
+              setFavorites(allStoredFavorites[tab]);
+            }
+          }
+          Alert.alert("Success");
+          break;
+        default:
+          Alert.alert("Error", "Invalid file format");
+          break;
+        
+        setExportImportOpen(false);
+      }
+    } 
+    catch (err) {
+      if (!DocumentPicker.isCancel(err)) {
+        Alert.alert("Error", err as string);
+      }
+    }
   }
 
   const newFavoriteSection = (
