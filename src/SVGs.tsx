@@ -218,10 +218,11 @@ function MinusSVG(props: SVGProps): React.JSX.Element {
 function StarSVG(props: SVGProps): React.JSX.Element {
   const theme = useContext(ThemeContext);
   const color = props.color || theme.addColor;
+  const size = props.width || props.height || 25;
   return (
     <Svg
-      width={25}
-      height={25}
+      width={size}
+      height={size}
       fill={color}
       stroke={color}
       viewBox="0 0 100.0 100.0">
@@ -455,7 +456,34 @@ function RainbowSVG(props: SVGProps): React.JSX.Element {
   )
 }
 
+function ExportSVG (props: SVGProps): React.JSX.Element {
+  const theme = useContext(ThemeContext);
+  const color = props.color || theme.white;
+  const size = props.height || props.width || 30
+  return (
+    <Svg width={size} height={size} fill={color} stroke={color} viewBox="144 144 512 512">
+      <Defs>
+        <ClipPath id="b">
+        <Path d="m242 148.09h316v425.91h-316z"/>
+        </ClipPath>
+        <ClipPath id="a">
+        <Path d="m163 573h474v78.902h-474z"/>
+        </ClipPath>
+      </Defs>
+      <G>
+        <G clip-path="url(#b)">
+        <Path d="m388.87 568.57c3.0781 3.0781 7.1016 4.6133 11.133 4.6133s8.0547-1.5352 11.133-4.6133l141.7-141.7c6.1484-6.1484 6.1484-16.113 0-22.262-6.1484-6.1484-16.113-6.1484-22.262 0l-114.82 114.81v-355.59c0-8.6992-7.0547-15.742-15.742-15.742-8.6992 0-15.742 7.0547-15.742 15.742v355.59l-114.82-114.81c-6.1484-6.1484-16.113-6.1484-22.262 0-6.1484 6.1484-6.1484 16.113 0 22.262z"/>
+        </G>
+        <G clip-path="url(#a)">
+        <Path d="m620.41 573.18c-8.6992 0-15.742 7.0547-15.742 15.742v31.488h-409.35v-31.488c0-8.6914-7.0547-15.742-15.742-15.742-8.6992 0-15.742 7.0547-15.742 15.742v47.23c0 8.6914 7.0469 15.742 15.742 15.742h440.83c8.6914 0 15.742-7.0547 15.742-15.742v-47.23c0.003906-8.6875-7.0508-15.742-15.742-15.742z"/>
+        </G>
+      </G>
+    </Svg>
+  )
+}
+
 export {
+  ExportSVG,
   RainbowSVG,
   DramaSVG,
   SwordsSVG,

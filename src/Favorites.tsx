@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle, useContext } from 'react';
-import { View, Text, TextInput, Button, FlatList, Animated, StyleSheet, Dimensions, Easing, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, FlatList, Animated, StyleSheet, Dimensions, Easing, TouchableOpacity, Platform, PermissionsAndroid, Alert } from 'react-native';
 import { ThemeContext } from './App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { selectFavoriteID, selectFavoritesOpen, selectState, selectTabName, setFavoriteID, setFavoritesOpen, setState } from './redux';
 import { useDispatch, useSelector } from 'react-redux';
+import { ExportSVG, StarSVG } from './SVGs';
+import RNFetchBlob from 'react-native-blob-util';
 
 export type FavoritesRef = {
   showFavorites: () => void;
@@ -25,13 +27,15 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
   const [newFavoriteName, setNewFavoriteName] = useState('');
   const opacity = useRef(new Animated.Value(0)).current;
   const bottom = useRef(new Animated.Value(0)).current;
-  const addColor = useContext(ThemeContext).favoriteColor;
-  const closeColor = useContext(ThemeContext).primaryColor;
-  const containerColor = useContext(ThemeContext).secondaryColor;
-  const deleteColor = useContext(ThemeContext).deleteFavoriteColor;
+  const theme = useContext(ThemeContext)
+  const addColor = theme.favoriteColor;
+  const closeColor = theme.primaryColor;
+  const containerColor = theme.secondaryColor;
+  const deleteColor = theme.deleteFavoriteColor;
   const curTab = useSelector(selectTabName);
   const storageName = 'favorites' + curTab;
   const curFavorite = useSelector(selectFavoriteID);
+  const [exportImportOpen, setExportImportOpen] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem(storageName).then((data) => {
@@ -73,6 +77,7 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
       useNativeDriver: true,
     }).start(() => {
       dispatch(setFavoritesOpen(false));
+      setExportImportOpen(false);
     });
   }
 
@@ -126,6 +131,87 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
     setFavorites(newFavorites);
   }
 
+  const requestStoragePermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Storage Permission',
+            message: 'We need permission to save your files.',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('You can use the storage');
+        } else {
+          console.log('Storage permission denied');
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+  };
+
+  const writeFile = async (name:string, content:string) => {
+    const localPath = RNFetchBlob.fs.dirs.DownloadDir + '/' + name;
+    RNFetchBlob.fs.writeFile(localPath, content, 'utf8')
+    try {
+      await RNFetchBlob.MediaCollection.copyToMediaStore({
+        name,
+        parentFolder: '',
+        mimeType: 'text/plain' 
+        },
+        'Download', 
+        localPath
+      );
+      Alert.alert(
+        "Success",
+        "Saved to Downloads as " + name,
+        [],
+        { cancelable: true }
+      );
+    } catch (error) {
+      Alert.alert(
+        "Failed",
+        error as string,
+        [],
+        { cancelable: true }
+      );
+    }
+    RNFetchBlob.fs.unlink(localPath)
+  }
+
+  const exportCurrentPage = async () => {
+    const stateString = JSON.stringify(state);
+    const fileName = 'SingleFavorite.txt';
+    await writeFile(fileName, stateString);
+  }
+
+  const exportCurrentTab = async () => {
+    const stateString = JSON.stringify(favorites);
+    const fileName = curTab + 'Favorites.txt';
+    await writeFile(fileName, stateString);
+  }
+
+  const exportAllTabs = async () => {
+    const allFavoritesKeys = await AsyncStorage.getAllKeys();
+    const allFavoritesPairs = await AsyncStorage.multiGet(allFavoritesKeys);
+    const allFavorites:Record<string, StoredFavorite[]> = {};
+    allFavoritesPairs.forEach((pair) => {
+      allFavorites[pair[0]] = JSON.parse(pair[1] as string);
+    });
+    const stateString = JSON.stringify(allFavorites);
+    const fileName = 'AllFavorites.txt';
+    await writeFile(fileName, stateString);
+  }
+
+  const importFile = () => {
+    // determine what type of import it is by the file contents:
+    // string is single favorite, array is tab favorites, object is all favorites
+  }
+
   const newFavoriteSection = (
     <>
       <TextInput
@@ -140,7 +226,7 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
   )
 
   const existingFavoriteSection = (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+    <View style={{ flexDirection: 'row', marginTop: 20 }}>
       <View style={{ flex: 2 }}>
         <Button title="Save" onPress={saveFavorite} color={addColor} />
       </View>
@@ -148,19 +234,18 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
         <Button title="Delete" onPress={deleteFavorite} color={deleteColor} />
       </View>
     </View>
-
   )
 
-  return (
-    <Animated.View style={[
-      styles.container,
-      {
-        opacity: opacity,
-        transform: [{ translateY: bottom }],
-        backgroundColor: containerColor,
-      }
-    ]}>
-      <Button title="Close" onPress={closeFavorites} color={closeColor} />
+  const favoritesMenu = (
+    <>
+      <View style={{flexDirection: 'row', width: "100%"}}>
+        <View style={{flex: 1, marginRight: 20}}>
+          <Button title="Close" onPress={closeFavorites} color={closeColor} />
+        </View>
+        <TouchableOpacity onPress={() => setExportImportOpen(true)}>
+          <ExportSVG />
+        </TouchableOpacity>
+      </View>
       { curFavorite === 0 ? newFavoriteSection : existingFavoriteSection }
       <FlatList
         data={favorites}
@@ -172,6 +257,39 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
           </TouchableOpacity>
       }
       />
+    </>
+  )
+
+  const exportImportMenu = (
+    <>
+      <View style={{flexDirection: 'row', width: "100%", direction: 'rtl'}}>
+        <TouchableOpacity onPress={() => setExportImportOpen(false)}>
+          <StarSVG color={theme.white} width={30} />
+        </TouchableOpacity>
+      </View>
+      <View style={{height: 40}} />
+      <Button title="Export Current Page" onPress={exportCurrentPage} color={theme.primaryColor} />
+      <View style={{height: 40}} />
+      <Button title="Export Favorites for Current Tab" onPress={exportCurrentTab} color={darkenColor(theme.primaryColor, 0.25)} />
+      <View style={{height: 40}} />
+      <Button title="Export Favorites for All Tabs" onPress={exportAllTabs} color={darkenColor(theme.primaryColor, 0.5)} />
+      <View style={{height: 40}} />
+      <Button title="Import" onPress={importFile} color={darkenColor(theme.primaryColor, 0.75)} />
+    </>
+  )
+
+  return (
+    <Animated.View style={[
+      styles.container,
+      {
+        opacity: opacity,
+        transform: [{ translateY: bottom }],
+        backgroundColor: containerColor,
+      }
+    ]}>
+      {
+        exportImportOpen ? exportImportMenu : favoritesMenu
+      }
       <TouchableOpacity
         activeOpacity={1}
         onPress={closeFavorites}
@@ -186,6 +304,23 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
     </Animated.View>
   );
 });
+
+function darkenColor(hex: string, amount: number): string {
+  // Ensure the amount is between 0 and 1
+  amount = Math.min(Math.max(amount, 0), 1);
+  // Convert hex to RGB
+  const num = parseInt(hex.slice(1), 16);
+  const r = (num >> 16) & 255;
+  const g = (num >> 8) & 255;
+  const b = num & 255;
+  // Calculate the new RGB values
+  const newR = Math.round(r * (1 - amount));
+  const newG = Math.round(g * (1 - amount));
+  const newB = Math.round(b * (1 - amount));
+  // Convert RGB back to hex
+  const newHex = (newR << 16) | (newG << 8) | newB;
+  return `#${newHex.toString(16).padStart(6, '0')}`;
+}
 
 const styles = StyleSheet.create({
   container: {
