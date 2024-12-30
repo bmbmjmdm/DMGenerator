@@ -48,9 +48,9 @@ const tab: TabInfo = {
     },
   },
   theme: {
-    secondaryColor: '#D3BD57', //#E5F77D D7B003
+    secondaryColor: '#48639C',
     primaryColor: '#A19B95',
-    repickColor: '#D7B003aa',
+    repickColor: '#48639Caa',
     deleteColor: '#AC393177',
     deleteFavoriteColor: '#AC3931',
     addColor: '#7BA86180',
@@ -63,17 +63,5 @@ const tab: TabInfo = {
   name: 'City',
   darkStatusBarText: false
 };
-/*
 
-    theme: {
-      secondaryColor: "#A4508B",
-      primaryColor: "#A19B95",
-      repickColor: "#A4508B90",
-      deleteColor: "#EEB4B3",
-      addColor: "#73956Faa",
-      favoriteColor: "#73956F",
-      black: "#000000",
-      white: "#FFFFFF",
-    },
-    */
 export default tab;

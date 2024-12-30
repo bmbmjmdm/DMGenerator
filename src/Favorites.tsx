@@ -107,6 +107,9 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
       AsyncStorage.setItem(storageName, JSON.stringify([newFavorite, ...favorites]));
       setNewFavoriteName('');
     }
+    else {
+      Alert.alert("Empty Name", "Please enter a name for the favorite");
+    }
   };
 
 
