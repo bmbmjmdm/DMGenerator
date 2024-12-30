@@ -2,7 +2,9 @@ import React, {createContext, useEffect, useRef, useState} from 'react';
 import {
   Image,
   ImageSourcePropType,
+  KeyboardAvoidingView,
   LayoutChangeEvent,
+  Platform,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -47,8 +49,6 @@ const tabs = [CharacterTab, CityTab, CityEncounterTab, WildernessEncounterTab, Q
 
 function App(): React.JSX.Element {
   const [tab, setTab] = useState(CharacterTab);
-  const [scrollHeight, setScrollHeight] = useState(0);
-  const firstRender = useRef(true);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const theme = tab.theme;
   const icon = tab.icon;
@@ -74,19 +74,10 @@ function App(): React.JSX.Element {
     store.dispatch(setCurTab(tab.name))
   }
 
-  // manually set the height of the scrollview so we have the perfect amount of space for the navbar
-  const onLayout = (e: LayoutChangeEvent) => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      const layout = e.nativeEvent.layout;
-      setScrollHeight(layout.y - layout.height);
-    }
-  };
-
   return (
     <Provider store={store}>
       <ThemeContext.Provider value={theme}>
-        <SafeAreaView style={{backgroundColor: theme.secondaryColor}}>
+        <SafeAreaView style={{backgroundColor: theme.secondaryColor, flex:1}}>
           <StatusBar barStyle={darkStatusBarText ? "dark-content" : "light-content"} backgroundColor={theme.secondaryColor} />
           <View
             style={{
@@ -115,16 +106,21 @@ function App(): React.JSX.Element {
               />
             </LinearGradient>
           </View>
-          <ScrollView
-            scrollEnabled={!isFavoritesOpen}
-            style={{height: scrollHeight || '100%'}}
-            alwaysBounceVertical
-            overScrollMode={'always'}
-            contentInsetAdjustmentBehavior="automatic">
-            <Tab cards={cards} />
-          </ScrollView>
+          <KeyboardAvoidingView
+            style={{flex: 1}}
+            keyboardVerticalOffset = {Platform.OS === 'ios' ? 0 : 100}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          >
+            <ScrollView
+              scrollEnabled={!isFavoritesOpen}
+              style={{flex: 1}}
+              alwaysBounceVertical
+              overScrollMode={'always'}
+              contentInsetAdjustmentBehavior="automatic">
+              <Tab cards={cards} />
+            </ScrollView>
+          </KeyboardAvoidingView>
           <View
-            onLayout={onLayout}
             style={{
               boxShadow: '0px -4px 10px rgba(0, 0, 0, 0.5)',
               flexDirection: 'row',
