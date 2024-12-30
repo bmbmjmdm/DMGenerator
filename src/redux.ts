@@ -1,5 +1,7 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit'
 
+type TabName = 'NPC' | 'City' | 'City\nEncounter' | 'Path\nEncounter' | 'Quest' | 'Spice Up'
+
 type State = {
   'NPC': Record<string, string[]>,
   'City': Record<string, string[]>,
@@ -7,8 +9,9 @@ type State = {
   'Path\nEncounter': Record<string, string[]>,
   'Quest': Record<string, string[]>,
   'Spice Up': Record<string, string[]>,
-  curTabName: 'NPC' | 'City' | 'City\nEncounter' | 'Path\nEncounter' | 'Quest' | 'Spice Up',
+  curTabName: TabName,
   favoritesOpen: boolean
+  favoriteID: Record<TabName, number>
 }
 
 const tabSlice = createSlice({
@@ -21,7 +24,15 @@ const tabSlice = createSlice({
     'Quest': {},
     'Spice Up': {},
     curTabName: "NPC",
-    favoritesOpen: false
+    favoritesOpen: false,
+    favoriteID: {
+      'NPC': 0,
+      'City': 0,
+      'City\nEncounter': 0,
+      'Path\nEncounter': 0,
+      'Quest': 0,
+      'Spice Up': 0,
+    }
   } as State,
   reducers: {
     setState (state, action) {
@@ -32,15 +43,19 @@ const tabSlice = createSlice({
     },
     setFavoritesOpen (state, action) {
       state.favoritesOpen = action.payload
-    }
+    },
+    setFavoriteID (state, action) {
+      state.favoriteID[state.curTabName] = action.payload
+    },
   }
 })
 
-export const { setState, setCurTab, setFavoritesOpen } = tabSlice.actions
+export const { setState, setCurTab, setFavoritesOpen, setFavoriteID } = tabSlice.actions
 
 export const selectState = (state:State) => state[state.curTabName]
 export const selectTabName = (state:State) => state.curTabName
 export const selectFavoritesOpen = (state:State) => state.favoritesOpen
+export const selectFavoriteID = (state:State) => state.favoriteID[state.curTabName]
 
 export const store = configureStore({
   reducer: tabSlice.reducer

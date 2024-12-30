@@ -38,6 +38,7 @@ export type Theme = {
   repickColor: string;
   deleteColor: string;
   addColor: string;
+  deleteFavoriteColor: string;
   favoriteColor: string;
   black: string;
   white: string;

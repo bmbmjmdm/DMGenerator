@@ -46,6 +46,7 @@ const tab: TabInfo = {
     primaryColor: '#B6E9FF',
     repickColor: '#735CDD90',
     deleteColor: '#EF476F70',
+    deleteFavoriteColor: '#EF476F',
     addColor: '#56E39F80',
     favoriteColor: '#56E39F',
     black: '#000000',

@@ -6,7 +6,7 @@ import IconPlus from './IconPlus';
 import Pill from './Pill';
 import Favorites, { FavoritesRef } from './Favorites';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectState, selectTabName, setState } from './redux';
+import { selectState, selectTabName, setFavoriteID, setState } from './redux';
 import {cloneDeep} from 'lodash';
 
 export type CardDetails = {
@@ -25,7 +25,6 @@ type TabProps = {
 };
 
 function Tab({cards}: TabProps): React.JSX.Element {
-  // Use a single useState to manage state for all cards
   const dispatch = useDispatch();
   const state = useSelector(selectState);
   const curTab = useSelector(selectTabName);
@@ -68,6 +67,7 @@ function Tab({cards}: TabProps): React.JSX.Element {
 
     newState.freeform = [''];
     
+    dispatch(setFavoriteID(0));
     setStateWrapper(newState);
   };
 
@@ -108,6 +108,7 @@ function Tab({cards}: TabProps): React.JSX.Element {
 
       {Object.keys(state).map((cardName: string) => {
         if (cardName === 'freeform') return;
+        if (cardName === 'favoriteID') return;
         const descriptionList = state[cardName];
         const icon = cards[cardName].icon;
         const longestDescription = descriptionList.length ? [...descriptionList].sort((a, b) => b.length - a.length)[0].length : 0

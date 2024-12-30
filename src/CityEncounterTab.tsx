@@ -15,6 +15,7 @@ const tab: TabInfo = {
     black: '#000000',
     white: '#FFFFFF',
     favoriteColor: '#1C7C54',
+    deleteFavoriteColor: '#EEB4B3',
     // unused
     deleteColor: '#EEB4B3',
     addColor: '#1C7C5477',

@@ -30,9 +30,9 @@ const tab: TabInfo = {
     favoriteColor: '#3A9F72',
     black: '#000000',
     white: '#FFFFFF',
-    // unused
     repickColor: '#91B1A3',
     deleteColor: '#DB546180',
+    deleteFavoriteColor: '#DB5461',
     addColor: '#3A9F7280',
   },
   icon: QuestIcon,

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle, us
 import { View, Text, TextInput, Button, FlatList, Animated, StyleSheet, Dimensions, Easing, TouchableOpacity } from 'react-native';
 import { ThemeContext } from './App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { selectFavoritesOpen, selectState, selectTabName, setFavoritesOpen, setState } from './redux';
+import { selectFavoriteID, selectFavoritesOpen, selectState, selectTabName, setFavoriteID, setFavoritesOpen, setState } from './redux';
 import { useDispatch, useSelector } from 'react-redux';
 
 export type FavoritesRef = {
@@ -12,6 +12,7 @@ export type FavoritesRef = {
 type StoredFavorite = {
   name: string;
   state: Record<string, string[]>;
+  id: number;
 }
 
 const Favorites = forwardRef<FavoritesRef>((props, ref) => {
@@ -19,6 +20,7 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
   const favoritesOpen = useSelector(selectFavoritesOpen);
   const dispatch = useDispatch();
   const setStateWrapper = (newState: Record<string, string[]>) => dispatch(setState(newState));
+  const setFavoriteIDWrapper = (newID: number) => dispatch(setFavoriteID(newID));
   const [favorites, setFavorites] = useState<StoredFavorite[]>([]);
   const [newFavoriteName, setNewFavoriteName] = useState('');
   const opacity = useRef(new Animated.Value(0)).current;
@@ -26,8 +28,10 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
   const addColor = useContext(ThemeContext).favoriteColor;
   const closeColor = useContext(ThemeContext).primaryColor;
   const containerColor = useContext(ThemeContext).secondaryColor;
+  const deleteColor = useContext(ThemeContext).deleteFavoriteColor;
   const curTab = useSelector(selectTabName);
   const storageName = 'favorites' + curTab;
+  const curFavorite = useSelector(selectFavoriteID);
 
   useEffect(() => {
     AsyncStorage.getItem(storageName).then((data) => {
@@ -76,8 +80,9 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
     showFavorites,
   }));
 
-  const loadFavorite = (state: Record<string, string[]>) => {
-    setStateWrapper(state);
+  const loadFavorite = (item:StoredFavorite) => {
+    setFavoriteIDWrapper(item.id)
+    setStateWrapper(item.state);
     closeFavorites();
   }
 
@@ -89,12 +94,62 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
       const newFavorite = {
         name: newFavoriteNameTemp,
         state: state,
+        id: Math.random(),
       }
+      setFavoriteIDWrapper(newFavorite.id);
       setFavorites([newFavorite, ...favorites]);
       AsyncStorage.setItem(storageName, JSON.stringify([newFavorite, ...favorites]));
       setNewFavoriteName('');
     }
   };
+
+
+  const saveFavorite = () => {
+    const newFavorites = favorites.map((item) => {
+      if (item.id === curFavorite) {
+        return {
+          name: item.name,
+          state: state,
+          id: item.id,
+        }
+      }
+      return item;
+    });
+    AsyncStorage.setItem(storageName, JSON.stringify(newFavorites));
+    setFavorites(newFavorites);
+  }
+
+  const deleteFavorite = () => {
+    const newFavorites = favorites.filter((item) => item.id !== curFavorite);
+    AsyncStorage.setItem(storageName, JSON.stringify(newFavorites));
+    setFavoriteIDWrapper(0);
+    setFavorites(newFavorites);
+  }
+
+  const newFavoriteSection = (
+    <>
+      <TextInput
+          style={styles.input}
+          placeholder="Enter new favorite"
+          value={newFavoriteName}
+          onChangeText={setNewFavoriteName}
+        />
+      <Button title="Add" onPress={addFavorite} color={addColor} />
+    </>
+
+  )
+
+  const existingFavoriteSection = (
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+      <View style={{ flex: 2 }}>
+        <Button title="Save" onPress={saveFavorite} color={addColor} />
+      </View>
+      <View style={{ flex: 1, marginLeft: 20 }}>
+        <Button title="Delete" onPress={deleteFavorite} color={deleteColor} />
+      </View>
+    </View>
+
+  )
 
   return (
     <Animated.View style={[
@@ -106,19 +161,13 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
       }
     ]}>
       <Button title="Close" onPress={closeFavorites} color={closeColor} />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter new favorite"
-        value={newFavoriteName}
-        onChangeText={setNewFavoriteName}
-      />
-      <Button title="Add" onPress={addFavorite} color={addColor} />
+      { curFavorite === 0 ? newFavoriteSection : existingFavoriteSection }
       <FlatList
         data={favorites}
         style={{ marginTop: 10 }}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => item.id.toString()}
         renderItem={({ item }) => 
-          <TouchableOpacity onPress={() => loadFavorite(item.state)}>
+          <TouchableOpacity onPress={() => loadFavorite(item)}>
             <Text style={styles.item}>{item.name}</Text>
           </TouchableOpacity>
       }
