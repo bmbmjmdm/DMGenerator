@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Image, TouchableOpacity} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {Dimensions, Image, TouchableOpacity} from 'react-native';
 import {TabInfo} from './App';
 import FloatingText from './FloatingText';
 
@@ -15,6 +15,9 @@ export function MenuButton({
   tab,
 }: MenuButtonProps): React.JSX.Element {
   const [showName, setShowName] = useState(false);
+  const widthRatio = useRef(Dimensions.get('window').width / 432).current;
+  const responsiveWidth = (width: number) => width * widthRatio;
+
   const animateName = () => {
     if (showName) return;
     setShowName(true);
@@ -35,7 +38,7 @@ export function MenuButton({
         onPress();
       }}>
       {showName ? <FloatingText dynamicSize text={tab.name} /> : null}
-      <Image source={tab.icon} style={{width: 50, height: 60}} />
+      <Image source={tab.icon} style={{width: responsiveWidth(50), height: responsiveWidth(60)}} />
     </TouchableOpacity>
   );
 }

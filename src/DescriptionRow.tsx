@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useRef, useState} from 'react';
-import {View, TouchableOpacity, Text, TextInput, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import {View, TouchableOpacity, Text, TextInput, Keyboard, KeyboardAvoidingView, Platform, Dimensions } from 'react-native';
 import {MinusSVG, ReloadSVG} from './SVGs';
 
 type DescriptionRowProps = {
@@ -20,6 +20,8 @@ function DescriptionRow({
   const [curText, setCurText] = useState(text);
   const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>(undefined);
   const textInputRef = useRef<TextInput>(null);
+  const heightRatio = useRef(Dimensions.get('window').height / 886).current;
+  const responsiveWHeight = (height: number) => height * heightRatio;
   //const previousText = useRef<string | undefined>(undefined);
 
   useEffect(() => {
@@ -78,7 +80,7 @@ function DescriptionRow({
           style={{
             fontSize: 20,
             flex: 5,
-            maxHeight: 400,
+            maxHeight: responsiveWHeight(400),
             color: 'black'
           }}
           multiline

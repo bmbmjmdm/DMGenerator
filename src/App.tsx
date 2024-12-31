@@ -1,5 +1,6 @@
 import React, {createContext, useEffect, useRef, useState} from 'react';
 import {
+  Dimensions,
   Image,
   ImageSourcePropType,
   KeyboardAvoidingView,
@@ -56,6 +57,9 @@ function App(): React.JSX.Element {
   const darkStatusBarText = tab.darkStatusBarText;
   const iconRatio = tab.iconRatio;
   const cards = tab.cards;
+  const widthRatio = useRef(Dimensions.get('window').width / 432).current;
+  const heightRatio = useRef(Dimensions.get('window').height / 886).current;
+  const responsiveAverage = (val: number) => val * (widthRatio + heightRatio) / 2;
 
   useEffect(() => {
     const unsubscribe = store.subscribe(() => {
@@ -85,7 +89,7 @@ function App(): React.JSX.Element {
               width: '100%',
               alignItems: 'center',
               position: 'absolute',
-              top: -150,
+              top: responsiveAverage(-150),
             }}>
             <LinearGradient
               start={{x: 0, y: 0}}
@@ -93,16 +97,16 @@ function App(): React.JSX.Element {
               colors={[theme.primaryColor, theme.primaryColor, theme.white]}
               style={{
                 borderRadius: 999,
-                width: 600,
-                height: 600,
+                width: responsiveAverage(600),
+                height: responsiveAverage(600),
                 alignItems: 'center',
               }}>
               <Image
                 source={icon}
                 style={{
-                  width: 330,
-                  height: 330 * iconRatio,
-                  top: (165 * 1) / iconRatio,
+                  width: responsiveAverage(330),
+                  height: responsiveAverage(330 * iconRatio),
+                  top: responsiveAverage((165 * 1) / iconRatio),
                 }}
               />
             </LinearGradient>
