@@ -18,11 +18,14 @@ function DescriptionRow({
   onUpdateText
 }: DescriptionRowProps): React.JSX.Element {
   const [curText, setCurText] = useState(text);
+  const [editable, setEditable] = useState<boolean>(true);
+  const pressTime = useRef<number>(0);
   const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>(undefined);
   const textInputRef = useRef<TextInput>(null);
   const heightRatio = useRef(Dimensions.get('window').height / 886).current;
   const responsiveWHeight = (height: number) => height * heightRatio;
   //const previousText = useRef<string | undefined>(undefined);
+
 
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
@@ -77,6 +80,7 @@ function DescriptionRow({
           </TouchableOpacity>
         ) : null}
         <TextInput
+          editable={editable}
           style={{
             fontSize: 20,
             flex: 5,
@@ -93,6 +97,20 @@ function DescriptionRow({
           value={curText}
           selection={cursorPosition}
           ref={textInputRef}
+          onPressIn={() => {
+            pressTime.current = Date.now();
+          }}
+          onPressOut={() => {
+            // If the user is long-pressing the text input, don't give it focus
+            // This allows the user to scroll long text without the keyboard popping up
+            if (Date.now() - pressTime.current > 200) {
+              // however if the user is already editing it, dont kick them out 
+              if (!textInputRef.current?.isFocused()) {
+                setEditable(false)
+                setTimeout(() => setEditable(true), 100)
+              }
+            }
+          }}
         />
         {onDelete ? (
           <TouchableOpacity style={{flex: 1}} onPress={onDelete}>

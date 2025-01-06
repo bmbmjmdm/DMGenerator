@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ExportSVG, StarSVG } from './SVGs';
 import RNFetchBlob from 'react-native-blob-util';
 import DocumentPicker from 'react-native-document-picker';
+import FloatingText from './FloatingText';
 
 export type FavoritesRef = {
   showFavorites: () => void;
@@ -26,6 +27,7 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
   const setFavoriteIDWrapper = (newID: number) => dispatch(setFavoriteID(newID));
   const [favorites, setFavorites] = useState<StoredFavorite[]>([]);
   const [newFavoriteName, setNewFavoriteName] = useState('');
+  const [saveSuccess, setSaveSuccess] = useState(false);
   const opacity = useRef(new Animated.Value(0)).current;
   const bottom = useRef(new Animated.Value(0)).current;
   const theme = useContext(ThemeContext)
@@ -113,7 +115,7 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
   };
 
 
-  const saveFavorite = () => {
+  const saveFavorite = async () => {
     const newFavorites = favorites.map((item) => {
       if (item.id === curFavorite) {
         return {
@@ -124,8 +126,14 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
       }
       return item;
     });
-    AsyncStorage.setItem(storageName, JSON.stringify(newFavorites));
     setFavorites(newFavorites);
+    try {
+      await AsyncStorage.setItem(storageName, JSON.stringify(newFavorites));
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 1100);
+    } catch (error) {
+      Alert.alert("Error", error as string);
+    }
   }
 
   const deleteFavorite = () => {
@@ -255,6 +263,7 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
     <View style={{ flexDirection: 'row', marginTop: 20 }}>
       <View style={{ flex: 2 }}>
         <Button title="Save" onPress={saveFavorite} color={addColor} />
+        {saveSuccess ? <FloatingText closeToTop text={"Success"} /> : null}
       </View>
       <View style={{ flex: 1, marginLeft: 20 }}>
         <Button title="Delete" onPress={deleteFavorite} color={deleteColor} />
