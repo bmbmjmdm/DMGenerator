@@ -17,9 +17,10 @@ function DescriptionRow({
   onRepick,
   onUpdateText
 }: DescriptionRowProps): React.JSX.Element {
-  const [curText, setCurText] = useState(text);
+  const [curText, setCurText] = useState(text?.trim());
   const [editable, setEditable] = useState<boolean>(true);
-  const pressTime = useRef<number>(0);
+  const [showKeyboard, setShowKeyboard] = useState<boolean>(true);
+  const pressTime = useRef<number>(Number.MAX_SAFE_INTEGER);
   const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>(undefined);
   const textInputRef = useRef<TextInput>(null);
   const heightRatio = useRef(Dimensions.get('window').height / 886).current;
@@ -53,7 +54,7 @@ function DescriptionRow({
     previousText.current = text
     console.log("big update")
     console.log("resetting text")*/
-    setCurText(text);
+    setCurText(text?.trim());
     if (text?.length > 550) {
       setCursorPosition({ start: 0 })
       setTimeout(() => {
@@ -81,6 +82,7 @@ function DescriptionRow({
         ) : null}
         <TextInput
           editable={editable}
+          showSoftInputOnFocus={showKeyboard}
           style={{
             fontSize: 20,
             flex: 5,
@@ -92,7 +94,8 @@ function DescriptionRow({
             setCurText(newText)
           }}
           onBlur={() => {
-            onUpdateText(curText)
+            setCurText(curText.trim())
+            onUpdateText(curText.trim())
           }}
           value={curText}
           selection={cursorPosition}
@@ -100,14 +103,25 @@ function DescriptionRow({
           onPressIn={() => {
             pressTime.current = Date.now();
           }}
-          onPressOut={() => {
-            // If the user is long-pressing the text input, don't give it focus
-            // This allows the user to scroll long text without the keyboard popping up
+          onTouchMove={() => {
+            // If the user is scrolling the text input before editting it, dont let the keyboard pop up
+            // setShowKeyboard(false) in onPressOut is somewhat unreliable since it's sometimes too late to prevent the keyboard
             if (Date.now() - pressTime.current > 200) {
-              // however if the user is already editing it, dont kick them out 
               if (!textInputRef.current?.isFocused()) {
+                setShowKeyboard(false)
+              }
+            }
+          }}
+          onPressOut={() => {
+            // If the user is scrolling the text input before editting it, dont show the cursor
+            // we cannot use setEditable(false) in onTouchMove because it will not allow the user to scroll the text input
+            if (Date.now() - pressTime.current > 200) {
+              pressTime.current = Number.MAX_SAFE_INTEGER;
+              if (!textInputRef.current?.isFocused()) {
+                setShowKeyboard(false)
                 setEditable(false)
                 setTimeout(() => setEditable(true), 100)
+                setTimeout(() => setShowKeyboard(true), 100)
               }
             }
           }}
