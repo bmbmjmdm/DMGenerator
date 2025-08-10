@@ -7,13 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* DMGeneratorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DMGeneratorTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-DMGenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-DMGenerator.a */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-DMGenerator-DMGeneratorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-DMGenerator-DMGeneratorTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		2DF8EDE42E48CAEA00DAA6D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF8EDE12E48CAEA00DAA6D3 /* main.m */; };
+		2DF8EDE52E48CAEA00DAA6D3 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DF8EDDC2E48CAEA00DAA6D3 /* AppDelegate.mm */; };
+		2DF8EDE62E48CAEA00DAA6D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF8EDDE2E48CAEA00DAA6D3 /* Images.xcassets */; };
+		2DF8EDE82E48CAEA00DAA6D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DF8EDE02E48CAEA00DAA6D3 /* LaunchScreen.storyboard */; };
+		2DF8EDE92E48CAEA00DAA6D3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 2DF8EDE22E48CAEA00DAA6D3 /* PrivacyInfo.xcprivacy */; };
+		2DF8EDEA2E48CAEA00DAA6D3 /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF8EDDD2E48CAEA00DAA6D3 /* appstore.png */; };
+		2DF8EDEB2E48CAEA00DAA6D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF8EDDE2E48CAEA00DAA6D3 /* Images.xcassets */; };
+		2DF8EDEC2E48CAEA00DAA6D3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2DF8EDDF2E48CAEA00DAA6D3 /* Info.plist */; };
+		2DF8EDED2E48CAEA00DAA6D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DF8EDE02E48CAEA00DAA6D3 /* LaunchScreen.storyboard */; };
+		2DF8EDEE2E48CAEA00DAA6D3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 2DF8EDE22E48CAEA00DAA6D3 /* PrivacyInfo.xcprivacy */; };
+		2DF8EDEF2E48CAEA00DAA6D3 /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF8EDDD2E48CAEA00DAA6D3 /* appstore.png */; };
+		2DF8EDF02E48CAEA00DAA6D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF8EDE12E48CAEA00DAA6D3 /* main.m */; };
+		2DF8EDF12E48CAEA00DAA6D3 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DF8EDDC2E48CAEA00DAA6D3 /* AppDelegate.mm */; };
+		5EAA3DEE3BE3560C8B06CC4F /* libPods-GMToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D41A5A3D9330605137D8E84E /* libPods-GMToolkit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,23 +34,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* DMGeneratorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DMGeneratorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* DMGeneratorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DMGeneratorTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* DMGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = DMGenerator/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = DMGenerator/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DMGenerator/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DMGenerator/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DMGenerator/main.m; sourceTree = "<group>"; };
-		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = DMGenerator/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-DMGenerator-DMGeneratorTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DMGenerator-DMGeneratorTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-DMGenerator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMGenerator.debug.xcconfig"; path = "Target Support Files/Pods-DMGenerator/Pods-DMGenerator.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-DMGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMGenerator.release.xcconfig"; path = "Target Support Files/Pods-DMGenerator/Pods-DMGenerator.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-DMGenerator-DMGeneratorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMGenerator-DMGeneratorTests.debug.xcconfig"; path = "Target Support Files/Pods-DMGenerator-DMGeneratorTests/Pods-DMGenerator-DMGeneratorTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-DMGenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DMGenerator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = DMGenerator/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-DMGenerator-DMGeneratorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DMGenerator-DMGeneratorTests.release.xcconfig"; path = "Target Support Files/Pods-DMGenerator-DMGeneratorTests/Pods-DMGenerator-DMGeneratorTests.release.xcconfig"; sourceTree = "<group>"; };
+		00E356EE1AD99517003FC87E /* GMToolkitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GMToolkitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* GMToolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GMToolkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DF8EDDB2E48CAEA00DAA6D3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2DF8EDDC2E48CAEA00DAA6D3 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		2DF8EDDD2E48CAEA00DAA6D3 /* appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appstore.png; sourceTree = "<group>"; };
+		2DF8EDDE2E48CAEA00DAA6D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2DF8EDDF2E48CAEA00DAA6D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DF8EDE02E48CAEA00DAA6D3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2DF8EDE12E48CAEA00DAA6D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2DF8EDE22E48CAEA00DAA6D3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		3C93895CFD624126F98D2B9C /* Pods-GMToolkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GMToolkit.debug.xcconfig"; path = "Target Support Files/Pods-GMToolkit/Pods-GMToolkit.debug.xcconfig"; sourceTree = "<group>"; };
+		8329D6BCEF07F9E57A1E0F37 /* Pods-GMToolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GMToolkit.release.xcconfig"; path = "Target Support Files/Pods-GMToolkit/Pods-GMToolkit.release.xcconfig"; sourceTree = "<group>"; };
+		D41A5A3D9330605137D8E84E /* libPods-GMToolkit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GMToolkit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -52,7 +55,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-DMGenerator-DMGeneratorTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,52 +62,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-DMGenerator.a in Frameworks */,
+				5EAA3DEE3BE3560C8B06CC4F /* libPods-GMToolkit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* DMGeneratorTests */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F21AD99517003FC87E /* DMGeneratorTests.m */,
-				00E356F01AD99517003FC87E /* Supporting Files */,
-			);
-			path = DMGeneratorTests;
-			sourceTree = "<group>";
-		};
-		00E356F01AD99517003FC87E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F11AD99517003FC87E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		13B07FAE1A68108700A75B9A /* DMGenerator */ = {
-			isa = PBXGroup;
-			children = (
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
-				13B07FB71A68108700A75B9A /* main.m */,
-				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
-			);
-			name = DMGenerator;
-			sourceTree = "<group>";
-		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-DMGenerator.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-DMGenerator-DMGeneratorTests.a */,
+				D41A5A3D9330605137D8E84E /* libPods-GMToolkit.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2DF8EDE32E48CAEA00DAA6D3 /* GMToolkit */ = {
+			isa = PBXGroup;
+			children = (
+				2DF8EDDB2E48CAEA00DAA6D3 /* AppDelegate.h */,
+				2DF8EDDC2E48CAEA00DAA6D3 /* AppDelegate.mm */,
+				2DF8EDDD2E48CAEA00DAA6D3 /* appstore.png */,
+				2DF8EDDE2E48CAEA00DAA6D3 /* Images.xcassets */,
+				2DF8EDDF2E48CAEA00DAA6D3 /* Info.plist */,
+				2DF8EDE02E48CAEA00DAA6D3 /* LaunchScreen.storyboard */,
+				2DF8EDE12E48CAEA00DAA6D3 /* main.m */,
+				2DF8EDE22E48CAEA00DAA6D3 /* PrivacyInfo.xcprivacy */,
+			);
+			path = GMToolkit;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -118,9 +103,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* DMGenerator */,
+				2DF8EDE32E48CAEA00DAA6D3 /* GMToolkit */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* DMGeneratorTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -133,8 +117,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* DMGenerator.app */,
-				00E356EE1AD99517003FC87E /* DMGeneratorTests.xctest */,
+				13B07F961A680F5B00A75B9A /* GMToolkit.app */,
+				00E356EE1AD99517003FC87E /* GMToolkitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,10 +126,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-DMGenerator.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-DMGenerator.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-DMGenerator-DMGeneratorTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-DMGenerator-DMGeneratorTests.release.xcconfig */,
+				3C93895CFD624126F98D2B9C /* Pods-GMToolkit.debug.xcconfig */,
+				8329D6BCEF07F9E57A1E0F37 /* Pods-GMToolkit.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -153,30 +135,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* DMGeneratorTests */ = {
+		00E356ED1AD99517003FC87E /* GMToolkitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DMGeneratorTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GMToolkitTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = DMGeneratorTests;
+			name = GMToolkitTests;
 			productName = DMGeneratorTests;
-			productReference = 00E356EE1AD99517003FC87E /* DMGeneratorTests.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* GMToolkitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* DMGenerator */ = {
+		13B07F861A680F5B00A75B9A /* GMToolkit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DMGenerator" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GMToolkit" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -190,9 +169,9 @@
 			);
 			dependencies = (
 			);
-			name = DMGenerator;
+			name = GMToolkit;
 			productName = DMGenerator;
-			productReference = 13B07F961A680F5B00A75B9A /* DMGenerator.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* GMToolkit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -212,7 +191,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DMGenerator" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GMToolkit" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -225,8 +204,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* DMGenerator */,
-				00E356ED1AD99517003FC87E /* DMGeneratorTests */,
+				13B07F861A680F5B00A75B9A /* GMToolkit */,
+				00E356ED1AD99517003FC87E /* GMToolkitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -236,6 +215,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DF8EDEB2E48CAEA00DAA6D3 /* Images.xcassets in Resources */,
+				2DF8EDEC2E48CAEA00DAA6D3 /* Info.plist in Resources */,
+				2DF8EDED2E48CAEA00DAA6D3 /* LaunchScreen.storyboard in Resources */,
+				2DF8EDEE2E48CAEA00DAA6D3 /* PrivacyInfo.xcprivacy in Resources */,
+				2DF8EDEF2E48CAEA00DAA6D3 /* appstore.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,8 +227,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				2DF8EDE62E48CAEA00DAA6D3 /* Images.xcassets in Resources */,
+				2DF8EDE82E48CAEA00DAA6D3 /* LaunchScreen.storyboard in Resources */,
+				2DF8EDE92E48CAEA00DAA6D3 /* PrivacyInfo.xcprivacy in Resources */,
+				2DF8EDEA2E48CAEA00DAA6D3 /* appstore.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,37 +259,19 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DMGenerator/Pods-DMGenerator-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GMToolkit/Pods-GMToolkit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DMGenerator/Pods-DMGenerator-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DMGenerator/Pods-DMGenerator-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GMToolkit/Pods-GMToolkit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DMGenerator-DMGeneratorTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GMToolkit/Pods-GMToolkit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
@@ -321,28 +289,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DMGenerator-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-GMToolkit-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DMGenerator-DMGeneratorTests/Pods-DMGenerator-DMGeneratorTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DMGenerator-DMGeneratorTests/Pods-DMGenerator-DMGeneratorTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DMGenerator-DMGeneratorTests/Pods-DMGenerator-DMGeneratorTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -351,32 +302,19 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DMGenerator/Pods-DMGenerator-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GMToolkit/Pods-GMToolkit-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DMGenerator/Pods-DMGenerator-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GMToolkit/Pods-GMToolkit-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DMGenerator/Pods-DMGenerator-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DMGenerator-DMGeneratorTests/Pods-DMGenerator-DMGeneratorTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DMGenerator-DMGeneratorTests/Pods-DMGenerator-DMGeneratorTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DMGenerator-DMGeneratorTests/Pods-DMGenerator-DMGeneratorTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GMToolkit/Pods-GMToolkit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -386,7 +324,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* DMGeneratorTests.m in Sources */,
+				2DF8EDF02E48CAEA00DAA6D3 /* main.m in Sources */,
+				2DF8EDF12E48CAEA00DAA6D3 /* AppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,8 +333,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				2DF8EDE42E48CAEA00DAA6D3 /* main.m in Sources */,
+				2DF8EDE52E48CAEA00DAA6D3 /* AppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,7 +343,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* DMGenerator */;
+			target = 13B07F861A680F5B00A75B9A /* GMToolkit */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -412,7 +351,6 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-DMGenerator-DMGeneratorTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -433,13 +371,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DMGenerator.app/DMGenerator";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GMToolkit.app/GMToolkit";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-DMGenerator-DMGeneratorTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -457,19 +394,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DMGenerator.app/DMGenerator";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GMToolkit.app/GMToolkit";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-DMGenerator.debug.xcconfig */;
+			baseConfigurationReference = 3C93895CFD624126F98D2B9C /* Pods-GMToolkit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = DMGenerator/Info.plist;
+				INFOPLIST_FILE = GMToolkit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -482,7 +419,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = DMGenerator;
+				PRODUCT_NAME = GMToolkit;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -491,12 +428,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-DMGenerator.release.xcconfig */;
+			baseConfigurationReference = 8329D6BCEF07F9E57A1E0F37 /* Pods-GMToolkit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = DMGenerator/Info.plist;
+				INFOPLIST_FILE = GMToolkit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -509,7 +446,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = DMGenerator;
+				PRODUCT_NAME = GMToolkit;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -584,7 +521,11 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -649,7 +590,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -657,7 +601,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DMGeneratorTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GMToolkitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -666,7 +610,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DMGenerator" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GMToolkit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -675,7 +619,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DMGenerator" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GMToolkit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
