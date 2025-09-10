@@ -1,36 +1,66 @@
-import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle, useContext } from 'react';
-import { View, Text, TextInput, Button, FlatList, Animated, StyleSheet, Dimensions, Easing, TouchableOpacity, Platform, PermissionsAndroid, Alert } from 'react-native';
-import { ThemeContext } from './App';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+  useContext,
+} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  Animated,
+  StyleSheet,
+  Dimensions,
+  Easing,
+  TouchableOpacity,
+  Platform,
+  PermissionsAndroid,
+  Alert,
+} from 'react-native';
+import {ThemeContext} from './App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { selectFavoriteID, selectFavoritesOpen, selectState, selectTabName, setFavoriteID, setFavoritesOpen, setState } from './redux';
-import { useDispatch, useSelector } from 'react-redux';
-import { ExportSVG, StarSVG } from './SVGs';
+import {
+  selectFavoriteID,
+  selectFavoritesOpen,
+  selectState,
+  selectTabName,
+  setFavoriteID,
+  setFavoritesOpen,
+  setState,
+} from './redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {ExportSVG, StarSVG} from './SVGs';
 import RNFetchBlob from 'react-native-blob-util';
 import DocumentPicker from 'react-native-document-picker';
 import FloatingText from './FloatingText';
 
 export type FavoritesRef = {
   showFavorites: () => void;
-}
+};
 
 type StoredFavorite = {
   name: string;
   state: Record<string, string[]>;
   id: number;
-}
+};
 
 const Favorites = forwardRef<FavoritesRef>((props, ref) => {
   const state = useSelector(selectState);
   const favoritesOpen = useSelector(selectFavoritesOpen);
   const dispatch = useDispatch();
-  const setStateWrapper = (newState: Record<string, string[]>) => dispatch(setState(newState));
-  const setFavoriteIDWrapper = (newID: number) => dispatch(setFavoriteID(newID));
+  const setStateWrapper = (newState: Record<string, string[]>) =>
+    dispatch(setState(newState));
+  const setFavoriteIDWrapper = (newID: number) =>
+    dispatch(setFavoriteID(newID));
   const [favorites, setFavorites] = useState<StoredFavorite[]>([]);
   const [newFavoriteName, setNewFavoriteName] = useState('');
   const [saveSuccess, setSaveSuccess] = useState(false);
   const opacity = useRef(new Animated.Value(0)).current;
   const bottom = useRef(new Animated.Value(0)).current;
-  const theme = useContext(ThemeContext)
+  const theme = useContext(ThemeContext);
   const addColor = theme.favoriteColor;
   const closeColor = theme.primaryColor;
   const containerColor = theme.secondaryColor;
@@ -41,16 +71,15 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
   const [exportImportOpen, setExportImportOpen] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem(storageName).then((data) => {
+    AsyncStorage.getItem(storageName).then(data => {
       if (data) {
         const storedFavorites: StoredFavorite[] = JSON.parse(data);
         setFavorites(storedFavorites);
-      }
-      else {
+      } else {
         setFavorites([]);
       }
     });
-  }, [curTab])
+  }, [curTab]);
 
   const showFavorites = () => {
     dispatch(setFavoritesOpen(true));
@@ -65,7 +94,7 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
       easing: Easing.inOut(Easing.ease),
       useNativeDriver: true,
     }).start();
-  }
+  };
 
   const closeFavorites = () => {
     Animated.timing(opacity, {
@@ -82,19 +111,17 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
       dispatch(setFavoritesOpen(false));
       setExportImportOpen(false);
     });
-  }
+  };
 
   useImperativeHandle(ref, () => ({
     showFavorites,
   }));
 
-  const loadFavorite = (item:StoredFavorite) => {
-    setFavoriteIDWrapper(item.id)
+  const loadFavorite = (item: StoredFavorite) => {
+    setFavoriteIDWrapper(item.id);
     setStateWrapper(item.state);
     closeFavorites();
-  }
-
-
+  };
 
   const addFavorite = () => {
     let newFavoriteNameTemp = newFavoriteName;
@@ -103,26 +130,27 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
         name: newFavoriteNameTemp,
         state: state,
         id: Math.random(),
-      }
+      };
       setFavoriteIDWrapper(newFavorite.id);
       setFavorites([newFavorite, ...favorites]);
-      AsyncStorage.setItem(storageName, JSON.stringify([newFavorite, ...favorites]));
+      AsyncStorage.setItem(
+        storageName,
+        JSON.stringify([newFavorite, ...favorites]),
+      );
       setNewFavoriteName('');
-    }
-    else {
-      Alert.alert("Empty Name", "Please enter a name for the favorite");
+    } else {
+      Alert.alert('Empty Name', 'Please enter a name for the favorite');
     }
   };
 
-
   const saveFavorite = async () => {
-    const newFavorites = favorites.map((item) => {
+    const newFavorites = favorites.map(item => {
       if (item.id === curFavorite) {
         return {
           name: item.name,
           state: state,
           id: item.id,
-        }
+        };
       }
       return item;
     });
@@ -132,199 +160,210 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 1100);
     } catch (error) {
-      Alert.alert("Error", error as string);
+      Alert.alert('Error', error as string);
     }
-  }
+  };
 
   const deleteFavorite = () => {
-    const newFavorites = favorites.filter((item) => item.id !== curFavorite);
+    const newFavorites = favorites.filter(item => item.id !== curFavorite);
     AsyncStorage.setItem(storageName, JSON.stringify(newFavorites));
     setFavoriteIDWrapper(0);
     setFavorites(newFavorites);
-  }
+  };
 
-  const writeFile = async (name:string, content:string) => {
+  const writeFile = async (name: string, content: string) => {
     const localPath = RNFetchBlob.fs.dirs.DownloadDir + '/' + name;
-    RNFetchBlob.fs.writeFile(localPath, content, 'utf8')
+    RNFetchBlob.fs.writeFile(localPath, content, 'utf8');
     try {
-      await RNFetchBlob.MediaCollection.copyToMediaStore({
-        name,
-        parentFolder: '',
-        mimeType: 'text/plain' 
+      await RNFetchBlob.MediaCollection.copyToMediaStore(
+        {
+          name,
+          parentFolder: '',
+          mimeType: 'text/plain',
         },
-        'Download', 
-        localPath
+        'Download',
+        localPath,
       );
-      Alert.alert(
-        "Success",
-        "Saved to Downloads as " + name,
-        [],
-        { cancelable: true }
-      );
+      Alert.alert('Success', 'Saved to Downloads as ' + name, [], {
+        cancelable: true,
+      });
     } catch (error) {
-      Alert.alert(
-        "Failed",
-        error as string,
-        [],
-        { cancelable: true }
-      );
+      Alert.alert('Failed', error as string, [], {cancelable: true});
     }
-    RNFetchBlob.fs.unlink(localPath)
-  }
+    RNFetchBlob.fs.unlink(localPath);
+  };
 
   const exportCurrentPage = async () => {
-    const stateString = JSON.stringify({type: "Single", data: state});
+    const stateString = JSON.stringify({type: 'Single', data: state});
     const fileName = 'SingleFavorite.txt';
     await writeFile(fileName, stateString);
-  }
+  };
 
   const exportCurrentTab = async () => {
-    const stateString = JSON.stringify({type: "Tab", data: favorites});
+    const stateString = JSON.stringify({type: 'Tab', data: favorites});
     const fileName = curTab + 'Favorites.txt';
     await writeFile(fileName, stateString);
-  }
+  };
 
   const exportAllTabs = async () => {
     const allFavoritesKeys = await AsyncStorage.getAllKeys();
     const allFavoritesPairs = await AsyncStorage.multiGet(allFavoritesKeys);
-    const allFavorites:Record<string, StoredFavorite[]> = {};
-    allFavoritesPairs.forEach((pair) => {
+    const allFavorites: Record<string, StoredFavorite[]> = {};
+    allFavoritesPairs.forEach(pair => {
       allFavorites[pair[0]] = JSON.parse(pair[1] as string);
     });
-    const stateString = JSON.stringify({type: "All", data: allFavorites});
+    const stateString = JSON.stringify({type: 'All', data: allFavorites});
     const fileName = 'AllFavorites.txt';
     await writeFile(fileName, stateString);
-  }
+  };
 
   const importFile = async () => {
     try {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.plainText],
-        allowMultiSelection: false
+        allowMultiSelection: false,
       });
       const fileContent = await RNFetchBlob.fs.readFile(res[0].uri, 'utf8');
       const fileData = JSON.parse(fileContent);
       switch (fileData.type) {
-        case "Single":
+        case 'Single':
           setStateWrapper(fileData.data);
-          Alert.alert("Success");
+          Alert.alert('Success');
           break;
-        case "Tab":
+        case 'Tab':
           const allFavorites = [...favorites, ...fileData.data];
           AsyncStorage.setItem(storageName, JSON.stringify(allFavorites));
           setFavorites(allFavorites);
-          Alert.alert("Success");
+          Alert.alert('Success');
           break;
-        case "All":
+        case 'All':
           const allStoredFavoritesKeys = await AsyncStorage.getAllKeys();
-          const allStoredFavoritesPairs = await AsyncStorage.multiGet(allStoredFavoritesKeys);
-          const allStoredFavorites:Record<string, StoredFavorite[]> = {};
-          allStoredFavoritesPairs.forEach((pair) => {
+          const allStoredFavoritesPairs = await AsyncStorage.multiGet(
+            allStoredFavoritesKeys,
+          );
+          const allStoredFavorites: Record<string, StoredFavorite[]> = {};
+          allStoredFavoritesPairs.forEach(pair => {
             allStoredFavorites[pair[0]] = JSON.parse(pair[1] as string);
           });
           for (const tab in fileData.data) {
             if (!allStoredFavorites[tab]) allStoredFavorites[tab] = [];
-            allStoredFavorites[tab] = [...allStoredFavorites[tab], ...fileData.data[tab]];
+            allStoredFavorites[tab] = [
+              ...allStoredFavorites[tab],
+              ...fileData.data[tab],
+            ];
             AsyncStorage.setItem(tab, JSON.stringify(allStoredFavorites[tab]));
             if (tab.slice(9) === curTab) {
               setFavorites(allStoredFavorites[tab]);
             }
           }
-          Alert.alert("Success");
+          Alert.alert('Success');
           break;
         default:
-          Alert.alert("Error", "Invalid file format");
+          Alert.alert('Error', 'Invalid file format');
           break;
-        
-        setExportImportOpen(false);
+
+          setExportImportOpen(false);
       }
-    } 
-    catch (err) {
+    } catch (err) {
       if (!DocumentPicker.isCancel(err)) {
-        Alert.alert("Error", err as string);
+        Alert.alert('Error', err as string);
       }
     }
-  }
+  };
 
   const newFavoriteSection = (
     <>
       <TextInput
-          style={styles.input}
-          placeholder="Enter new favorite"
-          value={newFavoriteName}
-          onChangeText={setNewFavoriteName}
-        />
-      <Button title="Add" onPress={addFavorite} color={addColor} />
+        style={styles.input}
+        placeholder="Enter new favorite"
+        value={newFavoriteName}
+        onChangeText={setNewFavoriteName}
+      />
+      <Button title="ADD" onPress={addFavorite} color={addColor} />
     </>
-
-  )
+  );
 
   const existingFavoriteSection = (
-    <View style={{ flexDirection: 'row', marginTop: 20 }}>
-      <View style={{ flex: 2 }}>
-        <Button title="Save" onPress={saveFavorite} color={addColor} />
-        {saveSuccess ? <FloatingText closeToTop text={"Success"} /> : null}
+    <View style={{flexDirection: 'row', marginTop: 20}}>
+      <View style={{flex: 2}}>
+        <Button title="SAVE" onPress={saveFavorite} color={addColor} />
+        {saveSuccess ? <FloatingText closeToTop text={'Success'} /> : null}
       </View>
-      <View style={{ flex: 1, marginLeft: 20 }}>
-        <Button title="Delete" onPress={deleteFavorite} color={deleteColor} />
+      <View style={{flex: 1, marginLeft: 20}}>
+        <Button title="DELETE" onPress={deleteFavorite} color={deleteColor} />
       </View>
     </View>
-  )
+  );
 
   const favoritesMenu = (
     <>
-      <View style={{flexDirection: 'row', width: "100%"}}>
+      <View style={{flexDirection: 'row', width: '100%'}}>
         <View style={{flex: 1, marginRight: 20}}>
-          <Button title="Close" onPress={closeFavorites} color={closeColor} />
+          <Button title="CLOSE" onPress={closeFavorites} color={closeColor} />
         </View>
         <TouchableOpacity onPress={() => setExportImportOpen(true)}>
           <ExportSVG />
         </TouchableOpacity>
       </View>
-      { curFavorite === 0 ? newFavoriteSection : existingFavoriteSection }
+      {curFavorite === 0 ? newFavoriteSection : existingFavoriteSection}
       <FlatList
         data={favorites}
-        style={{ marginTop: 10 }}
+        style={{marginTop: 10}}
         keyExtractor={(item, index) => item.id.toString()}
-        renderItem={({ item }) => 
+        renderItem={({item}) => (
           <TouchableOpacity onPress={() => loadFavorite(item)}>
             <Text style={styles.item}>{item.name}</Text>
           </TouchableOpacity>
-      }
+        )}
       />
     </>
-  )
+  );
 
   const exportImportMenu = (
     <>
-      <View style={{flexDirection: 'row', width: "100%", direction: 'rtl'}}>
+      <View style={{flexDirection: 'row', width: '100%', direction: 'rtl'}}>
         <TouchableOpacity onPress={() => setExportImportOpen(false)}>
           <StarSVG color={theme.white} width={30} />
         </TouchableOpacity>
       </View>
       <View style={{height: 40}} />
-      <Button title="Export Current Page" onPress={exportCurrentPage} color={theme.primaryColor} />
+      <Button
+        title="Export Current Page"
+        onPress={exportCurrentPage}
+        color={theme.primaryColor}
+      />
       <View style={{height: 40}} />
-      <Button title="Export Favorites for Current Tab" onPress={exportCurrentTab} color={darkenColor(theme.primaryColor, 0.25)} />
+      <Button
+        title="Export Favorites for Current Tab"
+        onPress={exportCurrentTab}
+        color={darkenColor(theme.primaryColor, 0.25)}
+      />
       <View style={{height: 40}} />
-      <Button title="Export Favorites for All Tabs" onPress={exportAllTabs} color={darkenColor(theme.primaryColor, 0.5)} />
+      <Button
+        title="Export Favorites for All Tabs"
+        onPress={exportAllTabs}
+        color={darkenColor(theme.primaryColor, 0.5)}
+      />
       <View style={{height: 40}} />
-      <Button title="Import" onPress={importFile} color={darkenColor(theme.primaryColor, 0.75)} />
+      <Button
+        title="Import"
+        onPress={importFile}
+        color={darkenColor(theme.primaryColor, 0.75)}
+      />
     </>
-  )
+  );
 
   return (
-    <Animated.View style={[
-      styles.container,
-      {
-        opacity: opacity,
-        transform: [{ translateY: bottom }],
-        backgroundColor: containerColor,
-      }
-    ]}>
-      {
-        exportImportOpen ? exportImportMenu : favoritesMenu
-      }
+    <Animated.View
+      style={[
+        styles.container,
+        {
+          opacity: opacity,
+          transform: [{translateY: bottom}],
+          backgroundColor: containerColor,
+        },
+      ]}>
+      {exportImportOpen ? exportImportMenu : favoritesMenu}
       <TouchableOpacity
         activeOpacity={1}
         onPress={closeFavorites}
@@ -333,7 +372,7 @@ const Favorites = forwardRef<FavoritesRef>((props, ref) => {
           {
             opacity: opacity,
             display: favoritesOpen ? 'flex' : 'none',
-          }
+          },
         ]}
       />
     </Animated.View>
@@ -357,11 +396,25 @@ function darkenColor(hex: string, amount: number): string {
   return `#${newHex.toString(16).padStart(6, '0')}`;
 }
 
+type ButtonProps = {
+  title: string;
+  onPress: () => void;
+  color: string;
+};
+
+const Button = (props: ButtonProps) => (
+  <TouchableOpacity
+    style={{backgroundColor: props.color}}
+    onPress={props.onPress}>
+    <Text style={styles.button}>{props.title}</Text>
+  </TouchableOpacity>
+);
+
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
+    position: 'absolute',
     padding: 20,
-    width: "100%",
+    width: '100%',
     zIndex: 9999,
     top: -600,
     height: 500,
@@ -381,13 +434,20 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 20,
   },
+  button: {
+    padding: 10,
+    color: 'white',
+    fontSize: 14,
+    textAlign: 'center',
+    fontWeight: '800',
+  },
   obscureBackground: {
-    width: "120%",
+    width: '120%',
     height: 1000,
-    position: "absolute",
+    position: 'absolute',
     top: 500,
-    backgroundColor: "rgba(0,0,0,0.5)",
-  }
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
 });
 
 export default Favorites;

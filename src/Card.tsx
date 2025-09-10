@@ -27,7 +27,6 @@ function Card({icon, rows, children}: CardProps): React.JSX.Element {
             style={{
               flexDirection: 'column',
               flex: rows?.length ? 3 : 0,
-              rowGap: 10,
             }}>
             {rows}
           </View>

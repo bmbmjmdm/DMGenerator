@@ -1,5 +1,14 @@
 import React, {createContext, useEffect, useRef, useState} from 'react';
-import {View, TouchableOpacity, Text, TextInput, Keyboard, KeyboardAvoidingView, Platform, Dimensions } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Dimensions,
+} from 'react-native';
 import {MinusSVG, ReloadSVG} from './SVGs';
 
 type DescriptionRowProps = {
@@ -15,32 +24,37 @@ function DescriptionRow({
   label,
   onDelete,
   onRepick,
-  onUpdateText
+  onUpdateText,
 }: DescriptionRowProps): React.JSX.Element {
   const [curText, setCurText] = useState(text?.trim());
   const [editable, setEditable] = useState<boolean>(true);
   const [showKeyboard, setShowKeyboard] = useState<boolean>(true);
   const pressTime = useRef<number>(Number.MAX_SAFE_INTEGER);
-  const [cursorPosition, setCursorPosition] = useState<{start: number} | undefined>(undefined);
+  const [cursorPosition, setCursorPosition] = useState<
+    {start: number} | undefined
+  >(undefined);
   const textInputRef = useRef<TextInput>(null);
   const heightRatio = useRef(Dimensions.get('window').height / 886).current;
   const responsiveWHeight = (height: number) => height * heightRatio;
   //const previousText = useRef<string | undefined>(undefined);
 
-
   useEffect(() => {
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      if (textInputRef.current) {
-        textInputRef.current.blur();
-      }
-    });
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        if (textInputRef.current) {
+          textInputRef.current.blur();
+        }
+      },
+    );
 
     return () => {
       keyboardDidHideListener.remove();
     };
   }, []);
 
-  useEffect(() => {/*
+  useEffect(() => {
+    /*
     this successfully stops the useEffect from going triggered by changing
     the parents text value
     however the problem still remains (i think) that onblur will auto set a text
@@ -56,19 +70,20 @@ function DescriptionRow({
     console.log("resetting text")*/
     setCurText(text?.trim());
     if (text?.length > 550) {
-      setCursorPosition({ start: 0 })
+      setCursorPosition({start: 0});
       setTimeout(() => {
-        setCursorPosition(undefined)
-      }, 100)
+        setCursorPosition(undefined);
+      }, 100);
     }
-  }, [text, /*curText*/]);
+  }, [text /*curText*/]);
 
   return (
-    <View 
+    <View
       style={{
         flexDirection: 'column',
-      }}
-    >
+        paddingTop: 10,
+        paddingBottom: 10,
+      }}>
       {label && <Text style={{fontSize: 16, color: 'grey'}}>{label}</Text>}
       <View
         style={{
@@ -84,18 +99,19 @@ function DescriptionRow({
           editable={editable}
           showSoftInputOnFocus={showKeyboard}
           style={{
+            paddingHorizontal: Platform.OS === 'ios' ? 5 : 0,
             fontSize: 20,
             flex: 5,
             maxHeight: responsiveWHeight(400),
-            color: 'black'
+            color: 'black',
           }}
           multiline
           onChangeText={newText => {
-            setCurText(newText)
+            setCurText(newText);
           }}
           onBlur={() => {
-            setCurText(curText.trim())
-            onUpdateText(curText.trim())
+            setCurText(curText.trim());
+            onUpdateText(curText.trim());
           }}
           value={curText}
           selection={cursorPosition}
@@ -108,7 +124,7 @@ function DescriptionRow({
             // setShowKeyboard(false) in onPressOut is somewhat unreliable since it's sometimes too late to prevent the keyboard
             if (Date.now() - pressTime.current > 200) {
               if (!textInputRef.current?.isFocused()) {
-                setShowKeyboard(false)
+                setShowKeyboard(false);
               }
             }
           }}
@@ -118,10 +134,10 @@ function DescriptionRow({
             if (Date.now() - pressTime.current > 200) {
               pressTime.current = Number.MAX_SAFE_INTEGER;
               if (!textInputRef.current?.isFocused()) {
-                setShowKeyboard(false)
-                setEditable(false)
-                setTimeout(() => setEditable(true), 100)
-                setTimeout(() => setShowKeyboard(true), 100)
+                setShowKeyboard(false);
+                setEditable(false);
+                setTimeout(() => setEditable(true), 100);
+                setTimeout(() => setShowKeyboard(true), 100);
               }
             }
           }}
