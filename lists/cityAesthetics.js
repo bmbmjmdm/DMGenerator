@@ -202,7 +202,7 @@ export default [
 "Patches of wildflowers",
 "Soft candlelight in windows",
 "Simple thatched roofs",
-"Baskets of fruit on market tables",
+"Baskets of fruit",
 "Cobblestones",
 "Lanterns",
 "Vineyards",

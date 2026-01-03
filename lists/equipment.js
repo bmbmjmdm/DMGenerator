@@ -89,7 +89,7 @@ export default [
 "Potion of Flight",
 "Potion of Growth",
 "Potion of Healing",
-"Potion of Heroism/Strength",
+"Potion of Heroism",
 "Potion of Mind Reading",
 "Potion of Stone Self",
 "Pure Fairy Dust",
